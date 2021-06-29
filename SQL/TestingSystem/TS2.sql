@@ -1,12 +1,12 @@
-DROP DATABASE IF EXISTS `Testing_System_Assignment_1`;
-CREATE DATABASE IF NOT EXISTS `Testing_System_Assignment_1`;
+DROP DATABASE IF EXISTS `Testing_System_Assignment_2`;
+CREATE DATABASE IF NOT EXISTS `Testing_System_Assignment_2`;
 
-USE `Testing_System_Assignment_1`;
+USE `Testing_System_Assignment_2`;
 
 DROP TABLE IF EXISTS Department;
 CREATE TABLE Department(
 	DepartmentID 	TINYINT PRIMARY KEY AUTO_INCREMENT,
-    DepartmentName	VARCHAR(30) NOT NULL
+    DepartmentName	VARCHAR(30) UNIQUE KEY CHECK(length(DepartmentName) >= 4)
 );
 
 DROP TABLE IF EXISTS `Position`;
@@ -18,20 +18,20 @@ CREATE TABLE `Position`(
 DROP TABLE IF EXISTS `Account`;
 CREATE TABLE `Account`(
 	AccountID		TINYINT PRIMARY KEY AUTO_INCREMENT,
-    Email			VARCHAR(50) NULL,
-    Username		VARCHAR(50) NOT NULL,
+    Email			VARCHAR(50) UNIQUE KEY,
+    Username		VARCHAR(50) CHECK(length(Username) >= 6),
     FullName		VARCHAR(100) NOT NULL,
     DepartmentID	TINYINT,
     FOREIGN KEY (DepartmentID) REFERENCES Department(DepartmentID),
     PositionID		TINYINT,
     FOREIGN KEY (PositionID) REFERENCES `Position`(PositionID),
-    CreateDate		DATE NULL
+    CreateDate		DATETIME DEFAULT NOW()
 );
 
 DROP TABLE IF EXISTS `Group`;
 CREATE TABLE `Group`(
 	GroupID			TINYINT PRIMARY KEY AUTO_INCREMENT,
-    GroupName		VARCHAR(30) NOT NULL,
+    GroupName		VARCHAR(30) NOT NULL, 7
     CreatorID		TINYINT,
     FOREIGN KEY (CreatorID) REFERENCES `Account`(AccountID),
     CreateDate		DATE NULL
