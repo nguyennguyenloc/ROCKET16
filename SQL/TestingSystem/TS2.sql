@@ -153,7 +153,10 @@ VALUES		('A', 1, 'TRUE'),
             ('C', 3, 'FALSE'),
             ('D', 4, 'FALSE'),
             ('D', 5, 'TRUE'),
-            ('D', 6, 'NG');
+            ('D', 6, 'NG'),
+            ('B', 3, 'TRUE'),
+            ('C', 3, 'TRUE'),
+            ('D', 3, 'TRUE');
 
 SELECT * FROM Answer;
 

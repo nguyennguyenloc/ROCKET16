@@ -31,9 +31,9 @@ SELECT FullName FROM `Account` WHERE character_length(FullName) = (SELECT MAX(ch
 SELECT * FROM `Group`;
 SELECT GroupName FROM `Group` WHERE CreateDate > '2021-05-30 21:00:11';
 
--- Câu 7--chưa làm
+-- Câu 7
 SELECT * FROM `Question`;
-SELECT * FROM Answer;
+SELECT QuestionID FROM Answer GROUP BY QuestionID HAVING COUNT(*) = 4;
 
 -- Câu 8
 SELECT ExamID FROM Exam WHERE Duration > 60 AND CreateDate > 2019-12-20;
