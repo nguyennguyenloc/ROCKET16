@@ -47,8 +47,8 @@ CREATE TABLE `Account`(
 );
 
 INSERT INTO `Account`(Email, Username, FullName, DepartmentID, PositionID )
-VALUES		('nnloc123@gmail.com','NguyenLoc','Nguyễn Nguyên Lộc', 1, 1),
-			('hongphuong@gmail.com','HongPhuong','Trần Hồng Phương', 1, 2),
+VALUES		('nnloc123@gmail.com','Nguyên Lộc','Nguyễn Nguyên Lộc', 1, 1),
+			('hongphuong@gmail.com','Hồng Phương','Trần Hồng Phương', 1, 2),
             ('quocminh@gmail.com','Nguyễn Minh','Nguyễn Quốc Minh', 3, 3),
             ('viethoang@gmail.com','Viết Hoàng','Lê Viết Hoàng', 4, 4),
             ('trang199x@gmail.com','Thái Trang','Thái Thị Trang', 5, 4),
@@ -77,14 +77,16 @@ SELECT * FROM `Group`;
 
 DROP TABLE IF EXISTS GroupAccount;
 CREATE TABLE GroupAccount(
-	GroupID		TINYINT PRIMARY KEY AUTO_INCREMENT,
+	GroupID		TINYINT,
     AccountID	TINYINT,
+    PRIMARY KEY (GroupID, AccountID),
+    FOREIGN KEY (GroupID) REFERENCES `Group`(GroupID),
 	FOREIGN KEY (AccountID) REFERENCES `Account`(AccountID),
     JoinDate	DATETIME DEFAULT NOW()
 );
 
-INSERT INTO GroupAccount(AccountID)
-VALUES		(1), (2), (3), (4), (5), (6);
+INSERT INTO GroupAccount(GroupID, AccountID)
+VALUES		(1,1), (2,1), (3,2), (4,4), (5,3), (6,6), (1,5), (1,6);
 
 SELECT * FROM GroupAccount;
 
@@ -162,20 +164,20 @@ CREATE TABLE Exam(
     Title			VARCHAR(30),
     CategoryID		TINYINT,
     FOREIGN KEY (CategoryID) REFERENCES CategoryQuestion(CategoryID),
-    Duration		TIME NULL,
+    Duration		TINYINT UNSIGNED,
     CreatorID		TINYINT,
 	FOREIGN KEY (CreatorID) REFERENCES `Account`(AccountID),		
-    CreateDate		DATETIME DEFAULT NOW()
+    CreateDate		DATETIME
 );
 
-INSERT INTO Exam(`Code`, Title, CategoryID, Duration, CreatorID)
-VALUES 		('001','Tiêu đề A', 5, '13:31', 6),
-			('002','Tiêu đề B', 5, '14:30', 5),
-			('003','Tiêu đề C', 5, '13:30', 4),
-			('004','Tiêu đề D', 4, '15:00', 3),
-			('005','Tiêu đề E', 3, '16:31', 2),
-			('006','Tiêu đề F', 2, '13:31', 1),
-			('007','Tiêu đề G', 1, '15:30', 6);
+INSERT INTO Exam(`Code`, Title, CategoryID, Duration, CreatorID, CreateDate)
+VALUES 		('001','Tiêu đề A', 5, 60, 6, '2021-05-30'),
+			('002','Tiêu đề B', 5, 90, 5, '2018-05-30'),
+			('003','Tiêu đề C', 5, 130, 4, '2021-06-30'),
+			('004','Tiêu đề D', 4, 100, 3, '2021-07-30'),
+			('005','Tiêu đề E', 3, 45, 2, '2021-07-20'),
+			('006','Tiêu đề F', 2, 45, 1, '2021-06-10'),
+			('007','Tiêu đề G', 1, 180, 6, '2021-04-25');
 
 SELECT * FROM Exam;
 
