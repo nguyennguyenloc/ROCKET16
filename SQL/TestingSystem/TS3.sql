@@ -47,11 +47,12 @@ SELECT COUNT(*) as 'Số nhân viên' FROM `Account` WHERE DepartmentID = 1;
 -- Câu 11
 SELECT Username FROM `Account` WHERE Username like 'h%g';
 
--- Câu 12--
+-- Câu 12
 SELECT * FROM `Exam`;
 DELETE FROM `Exam` WHERE CreateDate = '2021-04-25 00:00:00';
 
--- Câu 13-- --chưa làm
+-- Câu 13
+SELECT * FROM `Question`;
 DELETE FROM `Question` WHERE Content like 'a%';
 
 -- Câu 14

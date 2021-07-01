@@ -143,7 +143,7 @@ CREATE TABLE Answer(
 	AnswerID		TINYINT PRIMARY KEY AUTO_INCREMENT,
     Content			VARCHAR(50) NOT NULL,
     QuestionID		TINYINT,
-    FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID),		
+    FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID) ON DELETE CASCADE,		
     isCorrect		ENUM('TRUE', 'FALSE', 'NG')
 );
 
@@ -189,8 +189,8 @@ CREATE TABLE ExamQuestion(
 	ExamID			TINYINT, 
     QuestionID		TINYINT,
     PRIMARY KEY (ExamID, QuestionID),
-    FOREIGN KEY (ExamID) REFERENCES Exam(ExamID),
-    FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID)
+    FOREIGN KEY (ExamID) REFERENCES Exam(ExamID) ON DELETE CASCADE,
+    FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID) ON DELETE CASCADE
 );
 
 INSERT INTO ExamQuestion(ExamID, QuestionID) 
