@@ -1,0 +1,12 @@
+import java.time.LocalDate;
+
+public class Account {
+	byte accountID;
+	String email;
+	String userName;
+	String fullName;
+	Position PositionID;
+	LocalDate createDate;
+	Group[] groups;
+	Department[] departments;
+}

@@ -1,0 +1,62 @@
+import java.time.LocalDate;
+
+//import Position.namePosition;
+
+public class Program {
+
+	public static void main(String[] args) {
+		// Position
+		Position pos1 = new Position();
+		pos1.positionId = 1;
+//		pos1.positionName = namePosition.Dev;
+
+		Position pos2 = new Position();
+		pos2.positionId = 2;
+//		pos2.positionName = namePosition.Scrum_Master;
+
+		Position pos3 = new Position();
+		pos3.positionId = 3;
+		pos3.positionName = namePosition.Pm;
+
+		// Department
+		Department dp1 = new Department();
+		dp1.departmentId = 1;
+		dp1.nameDepartment = "Sale";
+
+		Department dp2 = new Department();
+		dp2.departmentId = 2;
+		dp2.nameDepartment = "Hr";
+
+		Department dp3 = new Department();
+		dp2.departmentId = 3;
+		dp2.nameDepartment = "Manager";
+
+		// Group
+		Group gp1 = new Group();
+		gp1.groupID = 1;
+		gp1.createDate = LocalDate.now();
+		gp1.groupName = "Sale";
+
+		Group gp2 = new Group();
+		gp2.groupID = 2;
+		gp2.groupName = "Code";
+
+		Group gp3 = new Group();
+		gp3.groupID = 3;
+		gp3.groupName = "Br";
+
+		// Account
+		Account ac1 = new Account();
+		ac1.accountID = 1;
+		ac1.createDate = LocalDate.now();
+		ac1.departmentID = dp1;
+		ac1.email = "nnloc123@gmail.com";
+		ac1.fullName = "Nguyen Nguyen Loc";
+		ac1.groups = new Group[] { gp1, gp3 };
+		ac1.PositionID = pos3;
+		ac1.userName = "Alex Lee";
+	
+	System.out.println(ac1.PositionID.positionName);
+	}
+
+}

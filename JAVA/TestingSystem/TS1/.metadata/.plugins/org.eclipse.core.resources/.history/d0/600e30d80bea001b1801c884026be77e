@@ -1,0 +1,7 @@
+
+public class Group {
+	int groupID;
+	String groupName;
+	int creatorID;
+	LocalDate createDate;
+}

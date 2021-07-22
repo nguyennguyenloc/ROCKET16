@@ -1,0 +1,9 @@
+
+public class Position {
+	int positionId;
+	namePosition positionName; 
+
+	public enum namePosition {
+		Dev, Test, Scrum_Master, Pm;
+	}
+}

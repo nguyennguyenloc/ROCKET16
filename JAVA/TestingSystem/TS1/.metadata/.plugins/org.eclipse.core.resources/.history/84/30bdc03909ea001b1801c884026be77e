@@ -1,0 +1,10 @@
+
+public class Account {
+int accountID;
+String email;
+String userName;
+String fullName;
+int departmentID;
+int PositionID;
+LocalDate createDate;
+}

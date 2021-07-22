@@ -1,0 +1,8 @@
+
+public class Exam {
+	byte examId;
+	byte code;
+	short title;
+	CategoryQuestion categoryId;
+	Timer duration;
+}
