@@ -1,0 +1,10 @@
+package com.vti.Lesson10.backend.presentationlayer;
+
+import com.vti.Lesson10.backend.businesslayer.IService;
+
+public class ControllerImpl implements IController {
+	IService iService;
+	public List<Account> getListAccount(int n) {
+
+	}
+}

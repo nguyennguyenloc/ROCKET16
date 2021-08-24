@@ -1,0 +1,11 @@
+
+public class Main {
+
+	public static void main(String[] args) {
+		String url = "jdbc:mysql://localhost:3306/testing_system";
+		String usesr = "root";
+		String password = "root";
+
+	}
+
+}

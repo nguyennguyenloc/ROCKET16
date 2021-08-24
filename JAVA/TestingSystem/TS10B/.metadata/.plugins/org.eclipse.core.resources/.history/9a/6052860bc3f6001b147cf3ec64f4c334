@@ -1,0 +1,13 @@
+package com.vti.Less10_JDBC.backend.businesslayer;
+
+public class ServiceImpl {
+	IRepository repository;
+
+	public ServiceImpl(){
+		repository = new DataRepositoryImpl();
+	}
+
+	public List<Account> getListAccount(){
+		return null;
+	};
+}

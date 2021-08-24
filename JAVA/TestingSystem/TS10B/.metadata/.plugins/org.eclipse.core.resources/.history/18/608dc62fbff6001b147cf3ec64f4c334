@@ -1,0 +1,8 @@
+package com.vti.Less10_JDBC.entity;
+
+public class Account {
+int id;
+String userName;
+String fullNamel
+String email;
+}

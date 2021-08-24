@@ -1,0 +1,18 @@
+package com.vti.Lesson10.backend.businesslayer;
+
+import java.util.List;
+
+import com.vti.Lesson10.entity.Account;
+
+public class ServiceImpl implements IService {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public List<Account> getListAccount() {
+		return null;
+	}
+
+}

@@ -1,0 +1,5 @@
+package com.vti.Less10_JDBC.entity;
+
+public class Account {
+
+}

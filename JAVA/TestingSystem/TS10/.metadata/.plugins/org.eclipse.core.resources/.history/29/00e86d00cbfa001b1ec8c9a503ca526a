@@ -1,0 +1,5 @@
+package com.vti.Lesson10.backend.presentationlayer;
+
+public interface IView {
+
+}

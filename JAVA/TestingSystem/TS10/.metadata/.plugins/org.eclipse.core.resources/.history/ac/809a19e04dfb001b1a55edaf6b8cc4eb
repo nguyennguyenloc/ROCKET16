@@ -1,0 +1,10 @@
+package com.vti.Lesson10.backend.datalayer;
+
+import java.util.List;
+
+import com.vti.Lesson10.entity.Account;
+
+public interface IRepository {
+	public List<Account> getListAccount();
+public List<Department> getListDepartments();
+}

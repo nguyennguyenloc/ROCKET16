@@ -1,0 +1,29 @@
+package com.vti.Lesson10.backend.presentationlayer;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.vti.Lesson10.backend.businesslayer.IService;
+import com.vti.Lesson10.backend.businesslayer.ServiceImpl;
+import com.vti.Lesson10.entity.Account;
+
+public class ControllerImpl implements IController {
+	IService iService;
+	IView iView;
+
+	public ControllerImpl(IView v) {
+		iService = new ServiceImpl();
+		this.iView = v;
+	}
+
+	public List<Account> getListAccount(int n) {
+		if (n > 0) {
+			return iService.getListAccount(n, iVew);
+		} else {
+			iView.showError("Không được truyền số âm");
+			return new ArrayList<Account>();
+		}
+
+	}
+
+}

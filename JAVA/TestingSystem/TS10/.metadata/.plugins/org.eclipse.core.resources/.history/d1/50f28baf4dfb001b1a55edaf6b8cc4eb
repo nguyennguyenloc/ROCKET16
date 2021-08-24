@@ -1,0 +1,6 @@
+package com.vti.Lesson10.entity;
+
+public class Department {
+int dpId;
+String dpName;
+}

@@ -1,0 +1,12 @@
+package com.vti.Lesson10.backend.datalayer;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.vti.Lesson10.entity.Account;
+
+public interface IRepository {
+	public List<Account> getListAccount() throws SQLException;
+
+//	public List<Department> getListDepartment;
+}

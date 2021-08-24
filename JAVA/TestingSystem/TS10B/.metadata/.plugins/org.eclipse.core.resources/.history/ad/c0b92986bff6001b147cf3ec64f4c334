@@ -1,0 +1,7 @@
+package com.vti.Less10_JDBC.backend.datalayer;
+
+import java.util.List;
+
+public interface IAccountRepository {
+	public List<Account> getListAccount();
+}

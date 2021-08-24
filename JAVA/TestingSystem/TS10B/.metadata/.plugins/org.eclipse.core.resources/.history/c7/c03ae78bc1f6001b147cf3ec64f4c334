@@ -1,0 +1,13 @@
+package com.vti.Less10_JDBC.backend.datalayer;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.vti.Less10_JDBC.entity.Account;
+import com.vti.Less10_JDBC.utils.JDBCUtil;
+
+public class DataRepositoryImpl {
+	public List<Account> list = new ArrayList<Account>();
+	
+	Connection connection = JDBCUtil
+}

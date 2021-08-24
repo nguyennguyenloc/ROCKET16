@@ -1,0 +1,9 @@
+package com.vti.Lesson10.backend.presentationlayer;
+
+import java.util.List;
+
+import com.vti.Lesson10.entity.Account;
+
+public interface IController {
+	public void getListAccount(int n);
+}

@@ -1,0 +1,12 @@
+package com.vti.Less10_JDBC.frontend;
+
+import com.vti.Less10_JDBC.utils.JDBCUtil;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		JDBCUtil.getIntance();
+	}
+
+}

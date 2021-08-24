@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.mysql.cj.xdevapi.Statement"/>
+<fullyQualifiedTypeName name="java.sql.DriverManager"/>
+<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+<fullyQualifiedTypeName name="com.vti.Lesson10.backend.datalayer.IRepository"/>
+<fullyQualifiedTypeName name="com.vti.Lesson10.backend.datalayer.DataRepositoryImpl"/>
+<fullyQualifiedTypeName name="com.vti.Lesson10.backend.businesslayer.ServiceImpl"/>
+<fullyQualifiedTypeName name="java.awt.List"/>
+<fullyQualifiedTypeName name="java.nio.channels.ShutdownChannelGroupException"/>
+<fullyQualifiedTypeName name="com.vti.Lesson10.backend.presentationlayer.ControllerImpl"/>
+<fullyQualifiedTypeName name="com.vti.Lesson10.backend.presentationlayer.IController"/>
+<fullyQualifiedTypeName name="java.lang.IndexOutOfBoundsException"/>
+<fullyQualifiedTypeName name="com.vti.Lesson10.backend.presentationlayer.IView"/>
+<fullyQualifiedTypeName name="javax.swing.JButton"/>
+<fullyQualifiedTypeName name="com.vti.Lesson10.utils.JDBCUtil"/>
+<fullyQualifiedTypeName name="com.vti.Lesson10.entity.Department"/>
+<fullyQualifiedTypeName name="com.vti.Lesson10.backend.businesslayer.IService"/>
+<fullyQualifiedTypeName name="org.w3c.dom.stylesheets.LinkStyle"/>
+<fullyQualifiedTypeName name="com.vti.Lesson10.entity.Account"/>
+<fullyQualifiedTypeName name="java.lang.Class"/>
+<fullyQualifiedTypeName name="com.vti.Lesson11.backend.datalayer.GroupRepository"/>
+<fullyQualifiedTypeName name="com.vti.Lesson11.backend.presentationlayer.GroupController"/>
+<fullyQualifiedTypeName name="com.google.protobuf.Internal.ListAdapter"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.lang.ClassNotFoundException"/>
+<fullyQualifiedTypeName name="java.sql.SQLException"/>
+<fullyQualifiedTypeName name="com.vti.Lesson11.utils.JDBCUtil"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.sql.Statement"/>
+<fullyQualifiedTypeName name="java.sql.ResultSet"/>
+<fullyQualifiedTypeName name="com.vti.Lesson11.entity.Group"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="java.sql.DriverManager"/>
+<fullyQualifiedTypeName name="com.vti.Less10_JDBC.backend.datalayer.IAccountRepository"/>
+<fullyQualifiedTypeName name="com.vti.Less10_JDBC.utils.JDBCUtil"/>
+<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+<fullyQualifiedTypeName name="com.mysql.cj.protocol.Resultset"/>
+<fullyQualifiedTypeName name="java.sql.Statement"/>
+<fullyQualifiedTypeName name="com.vti.Less10_JDBC.backend.businesslayer.ServiceImpl"/>
+<fullyQualifiedTypeName name="com.mysql.cj.xdevapi.DatabaseObjectDescription"/>
+<fullyQualifiedTypeName name="com.vti.Less10_JDBC.backend.datalayer.DataRepositoryImpl"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.vti.Less10_JDBC.entity.Account"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.vti.Less10_JDBC.backend.datalayer.IRepository"/>
+<fullyQualifiedTypeName name="com.vti.Less10_JDBC.backend.businesslayer.IService"/>
+<fullyQualifiedTypeName name="java.lang.Void"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+</qualifiedTypeNameHistroy>

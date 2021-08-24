@@ -1,0 +1,51 @@
+package com.vti.Lesson10.frontend;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.vti.Lesson10.backend.presentationlayer.ControllerImpl;
+import com.vti.Lesson10.backend.presentationlayer.IView;
+import com.vti.Lesson10.entity.Account;
+import com.vti.Lesson10.entity.Department;
+
+public class Main {
+
+	public static void main(String[] args) throws SQLException {
+		ControllerImpl controllerImpl = new ControllerImpl(new IView() {
+
+			public void showError(String errorMsg) {
+				System.out.println(errorMsg);
+			}
+
+			public void showListAccount(List<Account> list) {
+				// TODO Auto-generated method stub
+				System.out.println("id \t|\t Account \t|\t FullName \t|\t Email");
+				for (Account account : list) {
+					System.out.println(account.toString());
+				}
+
+			}
+
+			public void showListDepartment(List<Department> list) {
+				// TODO Auto-generated method stub
+				System.out.println("id\t|\t DepartmentName");
+				for (Department department : list) {
+					System.out.println(department.toString());
+				}
+				
+			}
+
+			System.out.println("Account chứa tên Account là:");
+			public void showListAccountId(List<Account> list) {
+				for (Account account : list) {
+					System.out.println(account.toString());
+				}
+				
+			}
+		});
+		controllerImpl.getListAccount(4);
+		controllerImpl.getListDepartmentSuccess(3);
+		controllerImpl.getListAccountId("vti1");
+	}
+
+}

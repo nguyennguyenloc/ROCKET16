@@ -1,0 +1,7 @@
+package com.vti.Lesson10.entity;
+
+public class Account {
+	int id;
+	String userName;
+	String fullName;
+}

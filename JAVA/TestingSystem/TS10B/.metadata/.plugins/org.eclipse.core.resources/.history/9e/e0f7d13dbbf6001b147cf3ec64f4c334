@@ -1,0 +1,28 @@
+package com.vti.Less10_JDBC.utils;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class JDBCUtil {
+	public static final String URL_DB = "jdbc:mysql://localhost:3306/Testing_System_1?autoReconnect=true&useSSL=false&characterEncoding=latin1";
+	public static final String USER_DB = "root";
+	public static final String PASSWORD = "root";
+	private static JDBCUtil i;
+	private Connection connection;
+
+	public static JDBCUtil getIntance() {
+		if (i == null) {
+			i = new JDBCUtil();
+		}
+		return i;
+	}
+public Connection getConnection(){
+	if(connection == null){
+		connection = DriverManager.getConnection(URL_DB, USER_DB, PASSWORD);
+	}
+	return connection;
+}
+	private JDBCUtil() {
+
+	}
+}

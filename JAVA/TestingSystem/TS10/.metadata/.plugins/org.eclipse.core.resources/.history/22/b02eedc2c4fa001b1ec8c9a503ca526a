@@ -1,0 +1,9 @@
+package com.vti.Lesson10.backend.businesslayer;
+
+import java.util.List;
+
+import com.vti.Lesson10.entity.Account;
+
+public interface IService {
+	public List<Account> getListAccount();
+}

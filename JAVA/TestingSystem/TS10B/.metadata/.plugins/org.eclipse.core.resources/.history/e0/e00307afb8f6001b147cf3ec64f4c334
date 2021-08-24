@@ -1,0 +1,7 @@
+package com.vti.Less10_JDBC.utils;
+
+public class JDBCUtil {
+public static Connection getConnection(){
+	
+}
+}

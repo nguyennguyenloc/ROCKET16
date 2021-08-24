@@ -1,0 +1,17 @@
+
+public class Student {
+	int id;
+	String name;
+	static String college = "Đại học Bách Khoa";
+
+	public Student() {
+		super();
+	}
+
+	public Student(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
+}

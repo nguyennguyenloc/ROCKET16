@@ -1,0 +1,11 @@
+package com.vti.Lesson10.backend.presentationlayer;
+
+import java.util.List;
+
+import com.vti.Lesson10.entity.Account;
+
+public interface IView {
+	public void showError(String errorMsg);
+
+	public void showListAccount(List<Account> list);
+}

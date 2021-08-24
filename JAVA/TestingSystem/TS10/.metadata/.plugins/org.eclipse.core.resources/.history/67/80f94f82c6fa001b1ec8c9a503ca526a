@@ -1,0 +1,25 @@
+package com.vti.Lesson10.backend.presentationlayer;
+
+import java.util.List;
+
+import com.vti.Lesson10.backend.businesslayer.IService;
+import com.vti.Lesson10.backend.businesslayer.ServiceImpl;
+import com.vti.Lesson10.entity.Account;
+
+public class ControllerImpl implements IController {
+	IService iService;
+	
+	public ControllerImpl(){
+		iService = new ServiceImpl();
+	}
+	
+	public List<Account> getListAccount(int n) {
+		if(n>0){
+			return IService.getListAccount(n);
+		}else{
+			
+			return null;
+		}
+
+	}
+}

@@ -1,0 +1,7 @@
+package com.vti.Lesson10.backend.presentationlayer;
+
+public class ControllerImpl implements IController {
+	public List<Account> getListAccount(int n) {
+
+	}
+}

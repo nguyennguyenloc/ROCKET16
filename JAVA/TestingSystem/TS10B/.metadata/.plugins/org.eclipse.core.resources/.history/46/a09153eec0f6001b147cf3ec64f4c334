@@ -1,0 +1,8 @@
+package com.vti.Less10_JDBC.backend.datalayer;
+
+import java.util.ArrayList;
+
+public class DataRepositoryImpl {
+public List<Account> list = new ArrayList<Account>();
+
+}

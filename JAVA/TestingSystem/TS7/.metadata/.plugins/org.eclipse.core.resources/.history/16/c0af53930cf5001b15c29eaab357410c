@@ -1,0 +1,19 @@
+import java.util.ArrayList;
+
+public class Main {
+
+	public static void main(String[] args) {
+		ArrayList<Student> students = new ArrayList<Student>();
+		Student student1 = new Student(1, "Loc");
+		Student student3 = new Student(2, "Minh");
+		Student student2 = new Student(3, "Nam");
+		students.add(student1);
+		students.add(student2);
+		students.add(student3);
+		for (Student student : students) {
+			System.out.println(student);
+//			student.toString();
+		}
+	}
+
+}

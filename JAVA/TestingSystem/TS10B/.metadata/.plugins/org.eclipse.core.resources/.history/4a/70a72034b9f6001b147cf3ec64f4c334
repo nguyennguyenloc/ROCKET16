@@ -1,0 +1,15 @@
+package com.vti.Less10_JDBC.utils;
+
+import java.sql.Connection;
+
+public class JDBCUtil {
+	private static JDBCUtil intances;
+
+public static getIntance(){
+	intances = new JDBSUtil();
+}
+
+	private JDBCUtil() {
+
+	}
+}
