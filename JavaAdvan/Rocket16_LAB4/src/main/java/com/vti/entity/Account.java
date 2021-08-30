@@ -1,0 +1,68 @@
+package com.vti.entity;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.CreationTimestamp;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@Table(name = "Account", catalog = "TestingSystemLab4")
+@Setter
+@Getter
+
+@NoArgsConstructor
+public class Account {
+	@Column(name = "AccountID")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private short id;
+
+	@Column(name = "Email", length = 50, nullable = false, unique = true, updatable = false)
+	private String email;
+
+	@Column(name = "Username", length = 50, nullable = false, unique = true, updatable = false)
+	private String userName;
+
+	@Column(name = "Fullname", length = 50, nullable = false)
+	private String fullName;
+
+	@ManyToOne
+	@JoinColumn(name = "DepartmentID", nullable = false)
+	@Cascade(value = { CascadeType.REMOVE, CascadeType.SAVE_UPDATE })
+	private Department department;
+
+	@ManyToOne
+	@JoinColumn(name = "PositionID", nullable = false)
+	@Cascade(value = { CascadeType.REMOVE, CascadeType.SAVE_UPDATE })
+	private Position position;
+
+	@Column(name = "CreateDate")
+	@Temporal(TemporalType.TIMESTAMP)
+	@CreationTimestamp
+	private Date createDate;
+
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", email=" + email + ", userName=" + userName + ", fullName=" + fullName
+				+ ", department=" + department + ", position=" + position + ", createDate=" + createDate + "]";
+	}
+
+}
