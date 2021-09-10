@@ -124,6 +124,15 @@ function getListAccount(){
     url += "?page=" + currentPage + "&size=" + size;
 
     url += "&sort=" + sortField + "," + (isAsc ? "asc" : "desc");
+
+    var search = $('#input-search-department').val();
+    // console.log("search", search);
+    if(search){
+        url += "&search=" + search;
+    }else{
+        url += "&search=" + " ";
+    }
+    // console.log("url", url);
     $.get(url, function(data,status){
         console.log("Data Account:", data);    
         listAccount = [];
@@ -132,15 +141,27 @@ function getListAccount(){
             return;
         }
         data.content.forEach((item) => {
-            var account = {
-            'AccountID': item.id,
-            'Email': item.email,
-            'Username': item.username,
-            'Fullname': item.fullname,
-            'Department': item.department,
-            'Position': item.position,
-            'CreateDate': item.createDate,
-            };
+            if(search|| item.department == search || item.email == search || item.fullname == search){
+                var account = {
+                    'AccountID': item.id,
+                    'Email': item.email,
+                    'Username': item.username,
+                    'Fullname': item.fullname,
+                    'Department': item.department,
+                    'Position': item.position,
+                    'CreateDate': item.createDate,
+                };
+            }else{
+                var account = {
+                    'AccountID': item.id,
+                    'Email': item.email,
+                    'Username': item.username,
+                    'Fullname': item.fullname,
+                    'Department': item.department,
+                    'Position': item.position,
+                    'CreateDate': item.createDate,
+                };
+            }
             listAccount.push(account);
         });
         showAccount();
@@ -308,4 +329,9 @@ function changeSort(field){
         isAsc = true;
     }
     getListAccount();
+}
+
+//Xử lý sự kiện khi nhất nút Search
+function handleSearch(){
+   getListAccount();
 }

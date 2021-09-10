@@ -1,8 +1,9 @@
 package com.vti.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.vti.entity.Account;
@@ -13,6 +14,7 @@ import com.vti.form.AccountFormForUpdating;
 import com.vti.repository.IAccountRepository;
 import com.vti.repository.IDepartmentRepository;
 import com.vti.repository.IPositionRepository;
+import com.vti.specification.AccountSpecification;
 
 @Service
 public class AccountService implements IAccountService {
@@ -26,9 +28,14 @@ public class AccountService implements IAccountService {
 	private IPositionRepository positionService;
 
 	@Override
-	public List<Account> getAllAccount() {
+	public Page<Account> getAllAccount(Pageable pageable, String search) {
 		// TODO Auto-generated method stub
-		return accountRepository.findAll();
+		Specification<Account> where = null;
+		AccountSpecification nameSpecification = new AccountSpecification("fullname", "LIKE", search);
+		AccountSpecification emailSpecification = new AccountSpecification("email", "LIKE", search);
+		AccountSpecification departmentSpecification = new AccountSpecification("department", "LIKE", search);
+		where = Specification.where(nameSpecification).or(emailSpecification).or(departmentSpecification);
+		return accountRepository.findAll(where, pageable);
 	}
 
 	@Override
