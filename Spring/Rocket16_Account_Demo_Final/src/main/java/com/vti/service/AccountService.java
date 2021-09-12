@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.vti.entity.Account;
 import com.vti.entity.Department;
@@ -31,10 +32,12 @@ public class AccountService implements IAccountService {
 	public Page<Account> getAllAccount(Pageable pageable, String search) {
 		// TODO Auto-generated method stub
 		Specification<Account> where = null;
+		if(!StringUtils.isEmpty(search)) {
 		AccountSpecification nameSpecification = new AccountSpecification("fullname", "LIKE", search);
 		AccountSpecification emailSpecification = new AccountSpecification("email", "LIKE", search);
 		AccountSpecification departmentSpecification = new AccountSpecification("department", "LIKE", search);
 		where = Specification.where(nameSpecification).or(emailSpecification).or(departmentSpecification);
+		}
 		return accountRepository.findAll(where, pageable);
 	}
 

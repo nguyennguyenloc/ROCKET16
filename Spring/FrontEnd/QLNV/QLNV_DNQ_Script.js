@@ -129,8 +129,6 @@ function getListAccount(){
     // console.log("search", search);
     if(search){
         url += "&search=" + search;
-    }else{
-        url += "&search=" + " ";
     }
     // console.log("url", url);
     $.get(url, function(data,status){
@@ -141,7 +139,6 @@ function getListAccount(){
             return;
         }
         data.content.forEach((item) => {
-            if(search|| item.department == search || item.email == search || item.fullname == search){
                 var account = {
                     'AccountID': item.id,
                     'Email': item.email,
@@ -151,17 +148,6 @@ function getListAccount(){
                     'Position': item.position,
                     'CreateDate': item.createDate,
                 };
-            }else{
-                var account = {
-                    'AccountID': item.id,
-                    'Email': item.email,
-                    'Username': item.username,
-                    'Fullname': item.fullname,
-                    'Department': item.department,
-                    'Position': item.position,
-                    'CreateDate': item.createDate,
-                };
-            }
             listAccount.push(account);
         });
         showAccount();
