@@ -4,8 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 
 import com.vti.entity.Account;
 import com.vti.entity.Department;
@@ -28,15 +32,16 @@ public class AccountService implements IAccountService {
 	@Autowired
 	private IPositionRepository positionService;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Page<Account> getAllAccount(Pageable pageable, String search) {
 		// TODO Auto-generated method stub
 		Specification<Account> where = null;
-		if(!StringUtils.isEmpty(search)) {
-		AccountSpecification nameSpecification = new AccountSpecification("fullname", "LIKE", search);
-		AccountSpecification emailSpecification = new AccountSpecification("email", "LIKE", search);
-		AccountSpecification departmentSpecification = new AccountSpecification("department", "LIKE", search);
-		where = Specification.where(nameSpecification).or(emailSpecification).or(departmentSpecification);
+		if (!StringUtils.isEmpty(search)) {
+			AccountSpecification nameSpecification = new AccountSpecification("fullname", "LIKE", search);
+			AccountSpecification emailSpecification = new AccountSpecification("email", "LIKE", search);
+			AccountSpecification departmentSpecification = new AccountSpecification("department", "LIKE", search);
+			where = Specification.where(nameSpecification).or(emailSpecification).or(departmentSpecification);
 		}
 		return accountRepository.findAll(where, pageable);
 	}
@@ -79,6 +84,23 @@ public class AccountService implements IAccountService {
 	public void deleteAccount(short id) {
 		// TODO Auto-generated method stub
 		accountRepository.deleteById(id);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		Account account = getAccountByUsername(username);
+		if (account == null) {
+			throw new UsernameNotFoundException(username);
+		}
+		return new User(account.getUsername(), account.getPassword(), AuthorityUtils.createAuthorityList("user"));
+	}
+
+	@Override
+	public Account getAccountByUsername(String username) {
+		// TODO Auto-generated method stub
+		return accountRepository.findByUsername(username);
+
 	}
 
 }

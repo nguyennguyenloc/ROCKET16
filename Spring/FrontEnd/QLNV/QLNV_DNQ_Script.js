@@ -60,64 +60,154 @@ $(function(){
         };
         console.log("new account", account);
         //hàm đẩy dữ liệu tạo account
-        $.post("http://localhost:8080/api/v1/accounts", account, function(data, status){
-            if(status == "error"){
-                alert("Error When loading data");
-                return;
-            }
-            //success
-            getListAccount();
+        // $.post("http://localhost:8080/api/v1/accounts", account, function(data, status){
+        //     if(status == "error"){
+        //         alert("Error When loading data");
+        //         return;
+        //     }
+        //     //success
+        //     getListAccount();
+        // });
+        // listAccount.push(account);
+        // showAccount();   
+        // pagingTable(data.totalPages);
+
+        $.ajax({
+            url: "http://localhost:8080/api/v1/accounts",
+            type: "POST",
+            data: JSON.stringify(account), // body
+            contentType: "application/json", // type of body (json, xml, text)
+            // dataType: 'json', // datatype return
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic " + btoa(localStorage.getItem("USERNAME") + ":" + localStorage.getItem("PASSWORD")));
+            },
+            success: function(data, textStatus, xhr) {
+                currentPage = totalPages;
+                getListAccount();
+                listAccount.push(account);
+            },
+            error(jqXHR, textStatus, errorThrown) {
+                alert("Error when loading data");
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+            },
+            
         });
-        listAccount.push(account);
-        showAccount();
+
         return false;
     });
 })
 //hàm lấy dữ liệu department
+// function getListDepartment(){
+//     $.get("http://localhost:8080/api/v1/departments", function(data,status){
+//         console.log("Data nhận được: ", data);
+//         console.log("Status: ", status);
+//         if(status=="error"){
+//             alert("Error when loading data");
+//             return;
+//         }
+//         data.forEach(item => {
+//             var department = {
+//                 'id': item.id,
+//                 'name': item.name,
+//             };
+//             listDepartment.push(department);
+//         });
+//         //show dữ liệu
+//         for (let index = 0; index < listDepartment.length; index++) {
+//             $("#Department_ID").append(`<option>${listDepartment[index].name}</option>`)            
+//         }
+//     })
+// }
 function getListDepartment(){
-    $.get("http://localhost:8080/api/v1/departments", function(data,status){
-        console.log("Data nhận được: ", data);
-        console.log("Status: ", status);
-        if(status=="error"){
-            alert("Error when loading data");
-            return;
+    $.ajax({
+        url: "http://localhost:8080/api/v1/departments",
+        type: 'GET',
+        contentType: "application/json",
+        dataType: 'json', // datatype return
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "Basic " + btoa(localStorage.getItem("USERNAME") + ":" + localStorage.getItem("PASSWORD")));
+        },
+        success: function(data, textStatus, xhr) {
+            // Đoạn lệnh này copy từ phần gọi Ajax theo cách không xác thực commemt bên trên xuống.
+            data.forEach(item => {
+                var department = {
+                    'id': item.id,
+                    'name': item.name,
+                };
+                listDepartment.push(department);
+            });
+            for (let index = 0; index < listDepartment.length; index++) {
+                $('#Department_ID').append(`
+            <option>${listDepartment[index].name}</option>
+            `)
+
+            }
+        },
+        error(jqXHR, textStatus, errorThrown) {
+            console.log("ooo");
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
         }
-        data.forEach(item => {
-            var department = {
-                'id': item.id,
-                'name': item.name,
-            };
-            listDepartment.push(department);
-        });
-        //show dữ liệu
-        for (let index = 0; index < listDepartment.length; index++) {
-            $("#Department_ID").append(`<option>${listDepartment[index].name}</option>`)            
-        }
-    })
+    });
 }
 
 //hàm lấy dữ liệu Position
-function getListPosition(){
-    $.get("http://localhost:8080/api/v1/possitions",function(data,status){
-        if(status=="error"){
-            alert("Error When loading data");
-            return;
-        }
-        data.forEach((item) => {
-            var position = {
-                id: item.id,
-                name: item.name,
-            };
-            listPosition.push(position);
-        });
-        console.log("list position", listPosition);
-        //show dữ liệu
-        for (let index = 0; index < listPosition.length; index++) {
-            $("#Position_ID").append(`<option>${listPosition[index].name}</option>`)            
-        }
-    })
-}
+// function getListPosition(){
+//     $.get("http://localhost:8080/api/v1/possitions",function(data,status){
+//         if(status=="error"){
+//             alert("Error When loading data");
+//             return;
+//         }
+//         data.forEach((item) => {
+//             var position = {
+//                 id: item.id,
+//                 name: item.name,
+//             };
+//             listPosition.push(position);
+//         });
+//         console.log("list position", listPosition);
+//         //show dữ liệu
+//         for (let index = 0; index < listPosition.length; index++) {
+//             $("#Position_ID").append(`<option>${listPosition[index].name}</option>`)            
+//         }
+//     })
+// }
 
+function getListPosition(){
+    $.ajax({
+        url: "http://localhost:8080/api/v1/possitions",
+        type: 'GET',
+        contentType: "application/json",
+        dataType: 'json', // datatype return
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "Basic " + btoa(localStorage.getItem("USERNAME") + ":" + localStorage.getItem("PASSWORD")));
+        },
+        success: function(data, textStatus, xhr) {
+            // Đoạn lệnh này copy từ phần gọi Ajax theo cách không xac thực commemt bên trên xuống.
+            data.forEach(function(item) {
+                var possition = {
+                    'id': item.id,
+                    'name': item.name,
+                }
+                listPosition.push(possition)
+            });
+            for (let index = 0; index < listPosition.length; index++) {
+                $('#Position_ID').append(`
+            <option>${listPosition[index].name}</option>
+              `)
+ 
+            }
+        },
+        error(jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        }
+    });
+}
 //hàm lấy dữ liệu Account
 function getListAccount(){
     var url = "http://localhost:8080/api/v1/accounts";
@@ -131,29 +221,54 @@ function getListAccount(){
         url += "&search=" + search;
     }
     // console.log("url", url);
-    $.get(url, function(data,status){
-        console.log("Data Account:", data);    
-        listAccount = [];
-        if(status == "error"){
-            alert("Error when loading data Account");
-            return;
+    // $.get(url, function(data,status){
+    //     console.log("Data Account:", data);    
+    //     listAccount = [];
+    //     if(status == "error"){
+    //         alert("Error when loading data Account");
+    //         return;
+    //     }
+    //     data.content.forEach((item) => {
+    //             var account = {
+    //                 'AccountID': item.id,
+    //                 'Email': item.email,
+    //                 'Username': item.username,
+    //                 'Fullname': item.fullname,
+    //                 'Department': item.department,
+    //                 'Position': item.position,
+    //                 'CreateDate': item.createDate,
+    //             };
+    //         listAccount.push(account);
+    //     });
+    //     showAccount();
+    //     totalPage = data.totalPages;
+    //     pagingTable(totalPage);
+    // })
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        contentType: "application/json",
+        dataType: 'json', // datatype return
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Authorization", "Basic " + btoa(localStorage.getItem("USERNAME") + ":" + localStorage.getItem("PASSWORD")));
+        },
+        success: function(data, textStatus, xhr) {
+            // reset list employees
+            listAccount = [];
+            parseData(data);
+            showAccount();
+            totalPages = data.totalPages;
+            // Sau khi hiển thị dữ liệu sẽ Show thêm các nút để thực hiện phân trang, tính các nút này dựa trên API totalPages được trả ra
+            pagingTable(totalPages);
+        },
+        error(jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
         }
-        data.content.forEach((item) => {
-                var account = {
-                    'AccountID': item.id,
-                    'Email': item.email,
-                    'Username': item.username,
-                    'Fullname': item.fullname,
-                    'Department': item.department,
-                    'Position': item.position,
-                    'CreateDate': item.createDate,
-                };
-            listAccount.push(account);
-        });
-        showAccount();
-        totalPage = data.totalPages;
-        pagingTable(totalPage);
-    })
+    });
+
 }
 //Viết hàm showAccount()
 function showAccount(){
@@ -222,21 +337,41 @@ function editAccount(index){
             positionId: posID,
         };
 
-        $.ajax({
-            url:"http://localhost:8080/api/v1/accounts/" + v_ID_ID,
-            type: "PUT",
-            data: account,
-            success: function(result){
-                //error
-                if(result == undefined || result == null){
-                    alert("Error When Loading Data");
-                    return;
-                }
-                getListAccount();
-            }
-        });
+        // $.ajax({
+        //     url:"http://localhost:8080/api/v1/accounts/" + v_ID_ID,
+        //     type: "PUT",
+        //     data: account,
+        //     success: function(result){
+        //         //error
+        //         if(result == undefined || result == null){
+        //             alert("Error When Loading Data");
+        //             return;
+        //         }
+        //         getListAccount();
+        //     }
+        // });
         
         // showAccount();
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/accounts/' + v_ID_ID,
+            type: 'PUT',
+            data: JSON.stringify(account), // body
+            contentType: "application/json", // type of body (json, xml, text)
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic " + btoa(localStorage.getItem("USERNAME") + ":" + localStorage.getItem("PASSWORD")));
+            },
+            // dataType: 'json', // datatype return
+            success: function(data, textStatus, xhr) {
+                getListAccount();
+            },
+            error(jqXHR, textStatus, errorThrown) {
+                alert("Error when loading data");
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+
     })
 }
 
@@ -244,21 +379,46 @@ function deleteAccount(index){
     var v_del_ID = listAccount[index].AccountID;
     var confirm_del = confirm("Bạn có chắc chắn muốn xoá Account này không?");
     if(confirm_del){
+        // $.ajax({
+        //     url: "http://localhost:8080/api/v1/accounts/" + v_del_ID,
+        //     type: "DELETE",
+        //     success: function(result){
+        //         //error
+        //         if(result == undefined || result == null){
+        //             alert("Error when loading data");
+        //             return;
+        //         }
+        //         getListAccount();
+        //     }
+        // })
+
         $.ajax({
-            url: "http://localhost:8080/api/v1/accounts/" + v_del_ID,
-            type: "DELETE",
-            success: function(result){
-                //error
-                if(result == undefined || result == null){
+            url: 'http://localhost:8080/api/v1/accounts/' + v_del_ID,
+            type: 'DELETE',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Basic " + btoa(localStorage.getItem("USERNAME") + ":" + localStorage.getItem("PASSWORD")));
+            },
+            success: function(result) {
+                // error
+                if (result == undefined || result == null) {
                     alert("Error when loading data");
                     return;
                 }
+ 
+                // success
+                resetPaging();
                 getListAccount();
             }
-        })
+        });
+
     }else{
         return;
     }
+}
+
+function resetPaging() {
+    currentPage = 1;
+    size = 5;
 }
 
 //nhóm hàm xử lý hiển thị dữ liệu
@@ -320,4 +480,60 @@ function changeSort(field){
 //Xử lý sự kiện khi nhất nút Search
 function handleSearch(){
    getListAccount();
+}
+function parseData(data) {
+    // employees = data;
+    // cần sử dụng thêm thuộc tính data.content để lấy ra được list account theo API từ Backend
+    data.content.forEach(function(item) {
+        var account = {
+            'AccountID': item.id,
+            'Email': item.email,
+            'Username': item.username,
+            'Fullname': item.fullname,
+            'Department': item.department,
+            'Position': item.position,
+            'CreateDate': item.createDate,
+        }
+        listAccount.push(account)
+    });
+}
+
+function loginSuccess(){
+   // Get username & password
+   var username = $('#Email_Login_id').val();
+   var password = $('#Password_Login_id').val();
+
+   // Call API
+   $.ajax({
+       url: 'http://localhost:8080/api/v1/login',
+       type: 'GET',
+       contentType: "application/json",
+       dataType: 'json', // datatype return
+       beforeSend: function(xhr) {
+           xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+       },
+       success: function(data, textStatus, xhr) {
+
+           // save data to storage
+           // https://www.w3schools.com/html/html5_webstorage.asp
+           localStorage.setItem("ID", data.id);
+           localStorage.setItem("FULL_NAME", data.fullName);
+           localStorage.setItem("USERNAME", username);
+           localStorage.setItem("PASSWORD", password);
+
+           // redirect to home page
+           // https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
+           window.location.replace("QLNV_DNQ.html");
+       },
+       error(jqXHR, textStatus, errorThrown) {
+           if (jqXHR.status == 401) {
+               alert("Kiểm tra lại thông tin!!")
+           } else {
+               console.log(jqXHR);
+               console.log(textStatus);
+               console.log(errorThrown);
+           }
+       }
+   });
+ 
 }

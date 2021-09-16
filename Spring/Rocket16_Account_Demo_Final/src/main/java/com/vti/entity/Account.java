@@ -47,6 +47,9 @@ public class Account implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createDate;
+	
+	@Column(name = "password", length = 800, nullable = true)
+	private String password;
 
 	public Account() {
 		super();
@@ -106,6 +109,15 @@ public class Account implements Serializable {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

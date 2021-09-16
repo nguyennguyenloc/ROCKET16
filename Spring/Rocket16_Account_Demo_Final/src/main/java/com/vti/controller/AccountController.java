@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,7 @@ public class AccountController {
 	public ResponseEntity<?> getAllAccount(Pageable pageable, @RequestParam(required = false) String search) {
 		Page<Account> entities = accountService.getAllAccount(pageable, search);
 
-		Page<AccontDto> dtos = entities.map(new Function<Account, AccontDto>() {
+		Page<AccontDto> dtoPage = entities.map(new Function<Account, AccontDto>() {
 			@Override
 			public AccontDto apply(Account account) {
 				AccontDto dto = new AccontDto(account.getId(), account.getEmail(), account.getUsername(),
@@ -44,7 +45,7 @@ public class AccountController {
 			}
 		});
 
-		return new ResponseEntity<>(dtos, HttpStatus.OK);
+		return new ResponseEntity<>(dtoPage, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{id}")
@@ -56,13 +57,13 @@ public class AccountController {
 	}
 
 	@PostMapping()
-	public ResponseEntity<?> createDepartment(AccountFormForCreating form) {
+	public ResponseEntity<?> createDepartment(@RequestBody AccountFormForCreating form) {
 		accountService.createAccount(form);
 		return new ResponseEntity<String>("Create successfully!", HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<?> updateDepartment(@PathVariable(name = "id") short id, AccountFormForUpdating form) {
+	public ResponseEntity<?> updateDepartment(@PathVariable(name = "id") short id, @RequestBody AccountFormForUpdating form) {
 		accountService.updateAccount(id, form);
 		return new ResponseEntity<String>("Update successfully!", HttpStatus.OK);
 	}

@@ -96,13 +96,5 @@ public class AccontDto {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-
-
-	@Override
-	public String toString() {
-		return "AccontDto [id=" + id + ", email=" + email + ", username=" + username + ", fullname=" + fullname
-				+ ", department=" + department + ", position=" + position + ", createDate=" + createDate + "]";
-	}
-
 	
 }

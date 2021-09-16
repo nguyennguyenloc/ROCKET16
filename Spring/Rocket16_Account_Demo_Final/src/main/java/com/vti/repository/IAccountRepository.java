@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import com.vti.entity.Account;
 
 public interface IAccountRepository extends JpaRepository<Account, Short>, JpaSpecificationExecutor<Account> {
+	public Account findByUsername(String username);
 }
