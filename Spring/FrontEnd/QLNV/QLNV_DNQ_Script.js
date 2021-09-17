@@ -15,6 +15,10 @@ $(function(){
     getListDepartment();
     getListPosition();
     getListAccount();
+
+    //hiden
+    $("#form1").hide();
+
     $("#reset_btn").click(function(){
         $("ID_ID").val("");
         $("Email_ID"),val("");
@@ -595,7 +599,11 @@ function loginSuccess(){
            xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
        },
        success: function(data, textStatus, xhr) {
-
+            if (data.status == "NOT_ACTIVE") {
+                alert("Bạn hãy Active tài khoản trước khi đăng nhập hệ thống.");
+                return false;
+            }
+    
            // save data to storage
            // https://www.w3schools.com/html/html5_webstorage.asp
            localStorage.setItem("ID", data.id);
@@ -617,5 +625,91 @@ function loginSuccess(){
            }
        }
    });
- 
 }
+
+//register
+function returnPageRegister() {
+    window.location.replace("RegisterPage.html");
+}
+
+//logout
+function logout(){
+    localStorage.removeItem("ID");
+    localStorage.removeItem("USERNAME");
+    localStorage.removeItem("FULL_NAME");
+    localStorage.removeItem("PASSWORD");
+
+    window.location.replace("Login.html");
+}
+  
+// Kích hoạt qua email
+// Hàm xử lý sự kiện khi click vào nút Resent Token, Ẩn hiện form gửi lại mã Token
+function ResentEmailActive() {
+    $("#form1").toggle();
+}
+//Hàm xử lý click vào nút Get Token, viết hàm để gửi lại Token
+function getToken() {
+    var email_id_token = $("#email_id_token").val();
+    // console.log("Email nhận được: ", email_id_token);
+    // Thực hiện check xem người dùng đã nhập vào Email hay chưa.
+    if (email_id_token) {
+    var base_URL =
+        "http://localhost:8080/api/v1/accountsRegister/userRegistrationConfirmRequest/";
+    base_URL += "?email=" + email_id_token;
+    // Thực hiện validate Email, kiểm tra xem email có trên hệ thống hay không
+    $.ajax({
+        url:
+        "http://localhost:8080/api/v1/accounts/EmailExists/" + email_id_token,
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json", // datatype return
+        beforeSend: function (xhr) {
+        xhr.setRequestHeader(
+            "Authorization",
+            "Basic " + btoa("Username1:123456")
+        );
+        },
+        success: function (data, textStatus, xhr) {
+        if (data) {
+            // TH này email đã có trên hệ thống, sẽ thực hiện Resent Email token
+            $.ajax({
+            url: base_URL,
+            type: "GET",
+            contentType: "application/json",
+            dataType: "text", // datatype return
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                "Authorization",
+                "Basic " + btoa("Username1:123456")
+                );
+            },
+            success: function (data, textStatus, xhr) {
+                alert(
+                "Chúng tôi đã gửi lại cho bạn email để kích hoạt, hãy Check lại."
+                );
+                $("#form1").hide(); // Thực hiện đóng form gửi email Token
+            },
+            error(jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+            },
+            });
+        } else {
+            // TH này Không có email người dùng nhập trên hệ thống
+            alert("Hãy kiểm tra lại thông tin email!!!");
+            return false;
+        }
+        },
+        error(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+        console.log(textStatus);
+        console.log(errorThrown);
+        },
+    });
+    } else {
+    alert("Hãy nhập vào email!!");
+    return false;
+    }
+}
+//
