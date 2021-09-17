@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,9 +49,21 @@ public class Account implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date createDate;
-	
+
 	@Column(name = "password", length = 800, nullable = true)
 	private String password;
+
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "`status`", nullable = false)
+	private AccountStatus status = AccountStatus.NOT_ACTIVE;
+
+	public AccountStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(AccountStatus status) {
+		this.status = status;
+	}
 
 	public Account() {
 		super();
@@ -111,7 +125,6 @@ public class Account implements Serializable {
 		this.createDate = createDate;
 	}
 
-	
 	public String getPassword() {
 		return password;
 	}

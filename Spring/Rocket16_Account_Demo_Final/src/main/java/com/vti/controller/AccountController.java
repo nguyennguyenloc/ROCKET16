@@ -56,6 +56,18 @@ public class AccountController {
 		return new ResponseEntity<AccontDto>(dto, HttpStatus.OK);
 	}
 
+
+	@GetMapping(value = "/UsernameExists/{name}")
+	public ResponseEntity<?> existsByName(@PathVariable(name = "name") String name) {
+		
+		return new ResponseEntity<>(accountService.existsByUsername(name), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/EmailExists/{email}")
+	public ResponseEntity<?> existsByEmail(@PathVariable(name = "email") String email) {
+		return new ResponseEntity<>(accountService.existsByEmail(email), HttpStatus.OK);
+	}
+
 	@PostMapping()
 	public ResponseEntity<?> createDepartment(@RequestBody AccountFormForCreating form) {
 		accountService.createAccount(form);

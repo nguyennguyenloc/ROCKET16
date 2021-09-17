@@ -36,6 +36,33 @@ $(function(){
         var v_Department_Name =$("#Department_ID").val();
         var v_Position_Name = $("#Position_ID").val();
         // var v_Cretate_Date_ID = $("#Cretate_Date_ID").val();
+
+        if (!v_Email_ID || v_Email_ID.length < 6 || v_Email_ID.length > 50) {
+            // show error message
+            alert("Email name must be from 6 to 50 characters!");
+            return false;
+        }
+        if (!v_Username_ID || v_Username_ID.length < 6 || v_Username_ID.length > 50) {
+            // show error message
+            alert("Username name must be from 6 to 50 characters!");
+            return false;
+        }
+        if (!v_Fullname_ID || v_Fullname_ID.length < 6 || v_Fullname_ID.length > 50) {
+            // show error message
+            alert("Fullname name must be from 6 to 50 characters!");
+            return false;
+        }
+        if (!v_Department_Name || v_Department_Name == '--Select a Department--') {
+            // show error message
+            alert("Pls choose Department!");
+            return false;
+        }
+        if (!v_Position_Name || v_Position_Name == '--Select a Position--') {
+            // show error message
+            alert("Pls choose Possition!");
+            return false;
+        }
+
         //chuyển đổi v_department_name về dạng department_id
         for (let index = 0; index < listDepartment.length; index++) {
             if(listDepartment[index].name == v_Department_Name){
@@ -49,6 +76,9 @@ $(function(){
                 // console.log("tên: ", v_Position_Name);
             }            
         }
+
+        //validate 
+
         var account = {
             // ID: v_ID_ID,
             email: v_Email_ID,
@@ -72,28 +102,80 @@ $(function(){
         // showAccount();   
         // pagingTable(data.totalPages);
 
+        //check email có tồn tại hay không
         $.ajax({
-            url: "http://localhost:8080/api/v1/accounts",
-            type: "POST",
-            data: JSON.stringify(account), // body
-            contentType: "application/json", // type of body (json, xml, text)
+            url: "http://localhost:8080/api/v1/accounts/EmailExists/" + v_Email_ID,
+            type: 'GET',
+            contentType: "application/json",
+            dataType: 'json', // datatype return
+
             // dataType: 'json', // datatype return
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("Authorization", "Basic " + btoa(localStorage.getItem("USERNAME") + ":" + localStorage.getItem("PASSWORD")));
             },
             success: function(data, textStatus, xhr) {
-                currentPage = totalPages;
-                getListAccount();
-                listAccount.push(account);
+                if(data){
+                    alert("Email đã tồn tại trên hệ thống");
+                    return false;
+                }else{
+                    $.ajax({
+                        url: "http://localhost:8080/api/v1/accounts/UsernameExists/" + v_Username_ID,
+                        type: 'GET',
+                        contentType: "application/json",
+                        dataType: 'json', // datatype return
+                        // dataType: 'json', // datatype return
+                        beforeSend: function(xhr) {
+                            xhr.setRequestHeader("Authorization", "Basic " + btoa(localStorage.getItem("USERNAME") + ":" + localStorage.getItem("PASSWORD")));
+                        },
+                        success: function(data, textStatus, xhr) {
+                            if(data){
+                                alert("Username đã tồn tại trên hệ thống");
+                                return false;
+                            } else {
+                                                        //call api
+                                $.ajax({
+                                    url: "http://localhost:8080/api/v1/accounts",
+                                    type: "POST",
+                                    data: JSON.stringify(account), // body
+                                    contentType: "application/json", // type of body (json, xml, text)
+                                    // dataType: 'json', // datatype return
+                                    beforeSend: function(xhr) {
+                                        xhr.setRequestHeader("Authorization", "Basic " + btoa(localStorage.getItem("USERNAME") + ":" + localStorage.getItem("PASSWORD")));
+                                    },
+                                    success: function(data, textStatus, xhr) {
+                                        currentPage = totalPages;
+                                        getListAccount();
+                                        listAccount.push(account);
+                                    },
+                                    error(jqXHR, textStatus, errorThrown) {
+                                        alert("Error when loading data");
+                                        console.log(jqXHR);
+                                        console.log(textStatus);
+                                        console.log(errorThrown);
+                                    },
+                                    
+                                });
+                            }
+                        },
+                        error(jqXHR, textStatus, errorThrown) {
+                            alert("Error when loading data");
+                            console.log(jqXHR);
+                            console.log(textStatus);
+                            console.log(errorThrown);
+                        },
+                        
+                    });
+                }
             },
             error(jqXHR, textStatus, errorThrown) {
                 alert("Error when loading data");
                 console.log(jqXHR);
                 console.log(textStatus);
                 console.log(errorThrown);
-            },
-            
+            },           
         });
+
+        
 
         return false;
     });
