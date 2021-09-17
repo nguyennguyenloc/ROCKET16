@@ -31,5 +31,7 @@ public interface IAccountService extends UserDetailsService {
 	public void createAccountRegister(AccountFormForCreatingRegister form);
 
 	public void activeUser(String token);
+	
+	public void  sendConfirmUserRegistrationViaEmail(String email);
 
 }

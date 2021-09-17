@@ -33,4 +33,15 @@ public class AccountRegisterController {
 		accountService.activeUser(token);
 		return new ResponseEntity<>("Active success!", HttpStatus.OK);
 	}
+	
+	//resent token
+	@GetMapping("/userRegistrationConfirmRequest")
+	// validate: email exists, email not active
+	public ResponseEntity<?> sendConfirmRegistrationViaEmail(@RequestParam String email) {
+
+		accountService.sendConfirmUserRegistrationViaEmail(email);
+
+		return new ResponseEntity<>("We have sent 1 email. Please check email to active account!", HttpStatus.OK);
+	}
+
 }

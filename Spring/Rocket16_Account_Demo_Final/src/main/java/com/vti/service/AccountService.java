@@ -159,7 +159,7 @@ public class AccountService implements IAccountService {
 		sendConfirmUserRegistrationViaEmail(account.getEmail());
 	}
 
-	private void sendConfirmUserRegistrationViaEmail(String email) {
+	public void sendConfirmUserRegistrationViaEmail(String email) {
 		eventPublisher.publishEvent(new OnSendRegistrationUserConfirmViaEmailEvent(email));
 	}
 
