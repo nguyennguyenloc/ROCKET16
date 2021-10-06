@@ -1,134 +1,134 @@
-import React from "react";
+import React, { Component } from "react";
 import "./App.css";
+import InputForm from "./Components/InputForm";
+import ResultForm from "./Components/ResultForm";
 
-function App() {
-  return (
-    <div className="App">
-      <div className="container">
-        <div className="form">
-          <h3>Quản lý nhân viên</h3>
-          <form method="POST" id="Main_Form_ID">
-            <div className="form-group">
-              <label htmlFor="">ID: </label>
-              <input
-                type="number"
-                required="true"
-                className="form-control"
-                id="ID_ID"
-                value=""
-                placeholder="Enter Id"
-              ></input>
-            </div>
-            <div className="form-group">
-              <label htmlFor="">Email: </label>
-              <input
-                type="email"
-                required="true"
-                className="form-control"
-                id="Email_ID"
-                value=""
-                placeholder="Enter Email"
-              ></input>
-            </div>
-            <div className="form-group">
-              <label htmlFor="">Username: </label>
-              <input
-                type="text"
-                required="true"
-                className="form-control"
-                id="Username_ID"
-                value=""
-                placeholder="Enter Username"
-              ></input>
-            </div>
-            <div className="form-group">
-              <label htmlFor="">Fullname: </label>
-              <input
-                type="text"
-                required="true"
-                className="form-control"
-                id="Fullname_ID"
-                value=""
-                placeholder="Enter Fullname"
-              ></input>
-            </div>
-            <div className="form-group">
-              <label htmlFor="sel1">Select a Department:</label>
-              <select className="form-control" id="Department_ID">
-                <option>--Select a Department--</option>
-                <option>Accounting</option>
-                <option>Business Development</option>
-                <option>Engineering</option>
-                <option>Human Resources</option>
-                <option>Research and Development</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="sel1">Select a Position:</label>
-              <select className="form-control" id="Position_ID">
-                <option>--Select a Position--</option>
-                <option>Developer</option>
-                <option>Tester</option>
-                <option>Scrum Master</option>
-                <option>PM</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="">Cretate Date: </label>
-              <input
-                type="date"
-                required="true"
-                className="form-control"
-                id="Cretate_Date_ID"
-                value=""
-              ></input>
-            </div>
-            <div className="form-group">
-              <input
-                type="submit"
-                className="btn btn-success"
-                value="Save"
-              ></input>
-              <input
-                type="button"
-                className="btn btn-success"
-                id="update_btn"
-                value="Update"
-              ></input>
-              <input
-                type="button"
-                className="btn btn-success"
-                id="reset_btn"
-                value="Reset"
-              ></input>
-            </div>
-          </form>
-        </div>
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      listAccounts: [],
+      isShowInputForm: false,
+    };
+  }
 
+  createData = () => {
+    let listAccounts = [
+      {
+        ID: "1",
+        Email: "Email1@gmail.com",
+        Username: "Username1",
+        Fullname: "Fullname1",
+        Department: "Accounting",
+        Position: "Scrum Master",
+      },
+      {
+        ID: "2",
+        Email: "Email2@gmail.com",
+        Username: "Username2",
+        Fullname: "Fullname2",
+        Department: "Accounting",
+        Position: "Scrum Master",
+      },
+      {
+        ID: "3",
+        Email: "Email3@gmail.com",
+        Username: "Username3",
+        Fullname: "Fullname3",
+        Department: "Accounting",
+        Position: "Scrum Master",
+      },
+      {
+        ID: "4",
+        Email: "Email4@gmail.com",
+        Username: "Username4",
+        Fullname: "Fullname4",
+        Department: "Accounting",
+        Position: "Scrum Master",
+      },
+    ];
+    this.setState({
+      listAccounts: listAccounts,
+    });
+    localStorage.setItem("listAccounts", JSON.stringify(listAccounts));
+  };
+
+  componentDidMount = () => {
+    if (localStorage && localStorage.getItem("listAccounts")) {
+      let listAccounts = JSON.parse(localStorage.getItem("listAccounts"));
+      this.setState({
+        listAccounts: listAccounts,
+      });
+    }
+  };
+  showInputForm = () => {
+    this.setState({
+      isShowInputForm: !this.state.isShowInputForm,
+    });
+  };
+
+  onShowForm = () => {
+    this.setState({
+      isShowInputForm: false,
+    });
+  };
+
+  onSaveForm = (account) => {
+    let listAccounts = this.state.listAccounts;
+    listAccounts.push(account);
+    this.setState({
+      // listAccounts: [...listAccounts, account],
+      listAccounts: listAccounts,
+    });
+    localStorage.setItem("listAccounts", JSON.stringify(listAccounts));
+  };
+
+  onDeleteFrom = (id) => {
+    console.log(id);
+    let listAccounts = this.state.listAccounts;
+    let indexAccountDel = listAccounts.findIndex(
+      (account) => account.ID === id
+    );
+    console.log(indexAccountDel);
+    if (indexAccountDel !== -1) {
+      listAccounts.splice(indexAccountDel, 1);
+      this.setState({
+        listAccounts: listAccounts,
+      });
+      localStorage.setItem("listAccounts", JSON.stringify(listAccounts));
+    }
+  };
+  render() {
+    let isShowInputForm = this.state.isShowInputForm;
+    let inputFormElement = "";
+    if (isShowInputForm) {
+      inputFormElement = (
+        <InputForm onShowForm={this.onShowForm} onSaveForm={this.onSaveForm} />
+      );
+    }
+    return (
+      <div className="App">
         <div className="container">
-          <div className="form">
-            <h3>Thông tin nhân viên trên hệ thống</h3>
-            <table className="table table-hover" id="Detail_Staff_ID">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Email</th>
-                  <th>Username</th>
-                  <th>Fullname</th>
-                  <th>Department</th>
-                  <th>Position</th>
-                  <th>Cretate Date</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
-                </tr>
-              </thead>
-              <tbody id="Result_TB"></tbody>
-            </table>
-          </div>
+          {/* <input
+            type="button"
+            className="btn btn-success"
+            value="Create Data"
+            onClick={this.createData}
+          /> */}
+          <input
+            type="button"
+            className="btn btn-success"
+            value="Create Account"
+            onClick={this.showInputForm}
+          />
+          {inputFormElement}
+          <ResultForm
+            listAccounts={this.state.listAccounts}
+            onDeleteFrom={this.onDeleteFrom}
+          />
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-
 export default App;
