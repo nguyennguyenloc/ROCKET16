@@ -26,6 +26,17 @@ export default class Sign_Up extends Component {
       isBlocking: isBlocking,
     });
   };
+
+  handleSubmit = () => {
+    var user = {
+      Full_Name: this.state.Full_Name,
+      Email: this.state.Email,
+      Password: this.state.Password,
+      Birthday: this.state.Birthday,
+    };
+    var json = JSON.stringify(user);
+    localStorage.setItem("user", json);
+  };
   render() {
     return (
       <div className="container">

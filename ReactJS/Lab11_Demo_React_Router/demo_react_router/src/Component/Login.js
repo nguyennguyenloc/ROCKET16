@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-
+import { Redirect } from "react-router-dom";
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       Email: "",
       Password: "",
+      isRedirect: false,
     };
   }
 
@@ -13,14 +14,39 @@ class Login extends Component {
     let name = event.target.name;
     let value = event.target.value;
     this.setState({
-      [name]: [value],
+      [name]: value,
     });
   };
 
   handleSubmit = () => {
-    console.log("ok");
+    var user = JSON.parse(localStorage.getItem("user"));
+    console.log("user " + user.Email + " " + user.Password);
+    console.log("state " + this.state.Email + " " + this.state.Password);
+    if (
+      user.Email === this.state.Email &&
+      user.Password === this.state.Password
+    ) {
+      alert("Đăng nhập thành công");
+      var user_login = {
+        Email: this.state.Email,
+        Password: this.state.Password,
+      };
+      var json = JSON.stringify(user_login);
+      localStorage.setItem("user_login", json);
+
+      this.setState({
+        isRedirect: true,
+      });
+    }
   };
   render() {
+    if (this.state.isRedirect) {
+      return <Redirect to="/AccountManagement" />;
+    }
+    var user_login = JSON.parse(localStorage.getItem("user_login"));
+    if (user_login) {
+      return <Redirect to="/AccountManagement" />;
+    }
     return (
       <div className="container" style={{ width: "70%" }}>
         <div className="row">
@@ -46,7 +72,7 @@ class Login extends Component {
             <div className="form-group">
               <label for="Password">Password:</label>
               <input
-                type="Password"
+                type="password"
                 required="true"
                 className="form-control"
                 id="Password_Login_id"
