@@ -6,6 +6,7 @@ import AccountManagement from "./Component/AccountManagement";
 import DepartmentManagement from "./Component/DepartmentManagement";
 import Login from "./Component/Login";
 import Sign_Up from "./Component/Sign_up";
+import AccountDetail from "./Component/AccountDetail";
 function App() {
   return (
     <div className="App">
@@ -82,6 +83,11 @@ function App() {
           <Route
             path="/AccountManagement"
             component={AccountManagement}
+            exact
+          />
+          <Route
+            path="/AccountManagement/:ID"
+            component={AccountDetail}
             exact
           />
           <Route
