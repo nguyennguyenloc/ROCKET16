@@ -9,6 +9,7 @@ class App extends Component {
     this.state = {
       listAccounts: [],
       isShowInputForm: false,
+      accountUpdate: null,
     };
   }
 
@@ -83,13 +84,24 @@ class App extends Component {
     localStorage.setItem("listAccounts", JSON.stringify(listAccounts));
   };
 
+  onUpdateFrom = (id) => {
+    let listAccounts = this.state.listAccounts;
+    let indexAccountUpdate = listAccounts.findIndex(
+      (account) => account.ID === id
+    );
+    if (indexAccountUpdate !== -1) {
+      let accountUpdate = listAccounts[indexAccountUpdate];
+      this.setState({
+        isShowInputForm: true,
+        accountUpdate: accountUpdate,
+      });
+    }
+  };
   onDeleteFrom = (id) => {
-    console.log(id);
     let listAccounts = this.state.listAccounts;
     let indexAccountDel = listAccounts.findIndex(
       (account) => account.ID === id
     );
-    console.log(indexAccountDel);
     if (indexAccountDel !== -1) {
       listAccounts.splice(indexAccountDel, 1);
       this.setState({
@@ -98,12 +110,32 @@ class App extends Component {
       localStorage.setItem("listAccounts", JSON.stringify(listAccounts));
     }
   };
+
+  update_Account_Button = (data) => {
+    let listAccounts = this.state.listAccounts;
+    let indexAccount_Update = listAccounts.findIndex(
+      (account) => account.ID === data.ID
+    );
+    if (indexAccount_Update !== -1) {
+      console.log(data);
+      listAccounts[indexAccount_Update] = data; // Thực hiện sửa lại Account theo data nhận được
+      this.setState({
+        listAccounts: listAccounts,
+      });
+      localStorage.setItem("listAccounts", JSON.stringify(listAccounts)); // Lưu lại dữ liệu xuống local Storage
+    }
+  };
   render() {
     let isShowInputForm = this.state.isShowInputForm;
     let inputFormElement = "";
     if (isShowInputForm) {
       inputFormElement = (
-        <InputForm onShowForm={this.onShowForm} onSaveForm={this.onSaveForm} />
+        <InputForm
+          onShowForm={this.onShowForm}
+          onSaveForm={this.onSaveForm}
+          accountUpdate={this.state.accountUpdate}
+          update_Account_Button={this.update_Account_Button}
+        />
       );
     }
     return (
@@ -124,6 +156,7 @@ class App extends Component {
           {inputFormElement}
           <ResultForm
             listAccounts={this.state.listAccounts}
+            onUpdateFrom={this.onUpdateFrom}
             onDeleteFrom={this.onDeleteFrom}
           />
         </div>

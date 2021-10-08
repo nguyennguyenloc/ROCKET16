@@ -40,6 +40,41 @@ class InputForm extends Component {
     // this.setState({});
     this.props.onShowForm();
   };
+  componentDidMount = () => {
+    if (this.props.accountUpdate) {
+      this.setState({
+        ID: this.props.accountUpdate.ID,
+        Email: this.props.accountUpdate.Email,
+        Username: this.props.accountUpdate.Username,
+        Fullname: this.props.accountUpdate.Fullname,
+        Department: this.props.accountUpdate.Department,
+        Position: this.props.accountUpdate.Position,
+        Create_Date: this.props.accountUpdate.Create_Date,
+      });
+    }
+  };
+  update_Account_Button = () => {
+    this.props.update_Account_Button(this.state);
+  };
+
+  static getDerivedStateFromProps(props, state) {
+    console.log("Các props " + props);
+    console.log("state hiện tại" + state);
+    if (props.accountUpdate === null) {
+      return;
+    }
+    if (props.accountUpdate.ID !== state.ID) {
+      return {
+        ID: props.accountUpdate.ID,
+        Email: props.accountUpdate.Email,
+        Username: props.accountUpdate.Username,
+        Fullname: props.accountUpdate.Fullname,
+        Department: props.accountUpdate.Department,
+        Position: props.accountUpdate.Position,
+        Create_Date: props.accountUpdate.Create_Date,
+      };
+    }
+  }
   render() {
     return (
       <div className="form">
@@ -154,6 +189,7 @@ class InputForm extends Component {
               className="btn btn-success"
               id="update_btn"
               value="Update"
+              onClick={this.update_Account_Button}
             ></input>
             <input
               type="button"

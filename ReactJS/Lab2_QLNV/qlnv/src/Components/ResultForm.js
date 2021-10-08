@@ -25,6 +25,7 @@ class ResultForm extends Component {
               <ResultFormItem
                 listAccounts={this.props.listAccounts}
                 onDeleteFrom={this.props.onDeleteFrom}
+                onUpdateFrom={this.props.onUpdateFrom}
               />
             </tbody>
           </table>

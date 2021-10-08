@@ -4,9 +4,10 @@ class ResultFormItem extends Component {
   constructor(props) {
     super(props);
     this.Cretate_Date = "4/10/2021";
-    console.log("ok", props);
   }
-
+  onUpdateFrom = (id) => {
+    this.props.onUpdateFrom(id);
+  };
   onDeleteFrom = (id) => {
     this.props.onDeleteFrom(id);
   };
@@ -21,9 +22,12 @@ class ResultFormItem extends Component {
           <td>{row.Fullname}</td>
           <td>{row.Department}</td>
           <td>{row.Position}</td>
-          <td>{this.Cretate_Date}</td>
+          <td>{row.Create_Date}</td>
           <td>
-            <button className="btn btn-warning" onclick="editAccount()">
+            <button
+              className="btn btn-warning"
+              onClick={() => this.onUpdateFrom(row.ID)}
+            >
               Edit
             </button>
           </td>
