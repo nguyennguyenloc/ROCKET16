@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import InputForm from "./Components/InputForm";
 import ResultForm from "./Components/ResultForm";
+import SearchForm from "./Components/SearchForm";
 
 class App extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class App extends Component {
       listAccounts: [],
       isShowInputForm: false,
       accountUpdate: null,
+      search_key: "",
     };
   }
 
@@ -125,6 +127,13 @@ class App extends Component {
       localStorage.setItem("listAccounts", JSON.stringify(listAccounts)); // Lưu lại dữ liệu xuống local Storage
     }
   };
+
+  onSearchForm = (search_key) => {
+    console.log(search_key);
+    this.setState({
+      search_key: search_key,
+    });
+  };
   render() {
     let isShowInputForm = this.state.isShowInputForm;
     let inputFormElement = "";
@@ -137,6 +146,41 @@ class App extends Component {
           update_Account_Button={this.update_Account_Button}
         />
       );
+    }
+    //check dữ liệu search
+    let search_key = this.state.search_key;
+    let listAccounts = this.state.listAccounts;
+    let listAccounts_filter = [];
+    if (search_key) {
+      for (let index = 0; index < listAccounts.length; index++) {
+        if (
+          listAccounts[index].ID.toLowerCase().includes(
+            search_key.toLowerCase()
+          ) ||
+          listAccounts[index].Email.toLowerCase().includes(
+            search_key.toLowerCase()
+          ) ||
+          listAccounts[index].Username.toLowerCase().includes(
+            search_key.toLowerCase()
+          ) ||
+          listAccounts[index].Fullname.toLowerCase().includes(
+            search_key.toLowerCase()
+          ) ||
+          listAccounts[index].Department.toLowerCase().includes(
+            search_key.toLowerCase()
+          ) ||
+          listAccounts[index].Position.toLowerCase().includes(
+            search_key.toLowerCase()
+          )
+          //  ||
+          // listAccounts[index].Cretate_Date.toLowerCase().includes(
+          //   search_key.toLowerCase()
+          // )
+        ) {
+          listAccounts_filter.push(listAccounts[index]);
+        }
+      }
+      listAccounts = listAccounts_filter;
     }
     return (
       <div className="App">
@@ -154,8 +198,9 @@ class App extends Component {
             onClick={this.showInputForm}
           />
           {inputFormElement}
+          <SearchForm onSearchForm={this.onSearchForm} />
           <ResultForm
-            listAccounts={this.state.listAccounts}
+            listAccounts={listAccounts}
             onUpdateFrom={this.onUpdateFrom}
             onDeleteFrom={this.onDeleteFrom}
           />
