@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import Axios from "axios";
+// import Axios from "axios";
+import DepartmentApi from "../Api/DepartmentApi";
+import PossitionApi from "../Api/PossitionApi";
 
 class InputForm extends Component {
   constructor(props) {
@@ -11,7 +13,7 @@ class InputForm extends Component {
       Fullname: "",
       Department: "",
       Position: "",
-      Cretate_Date: "",
+      Create_Date: "",
       listDepartment: [],
       listPossition: [],
     };
@@ -40,7 +42,7 @@ class InputForm extends Component {
       Fullname: this.state.Fullname,
       Department: this.state.Department,
       Position: this.state.Position,
-      Cretate_Date: this.state.Cretate_Date,
+      Create_Date: this.state.Create_Date,
     };
     this.props.onSaveForm(account);
     event.preventDefault();
@@ -59,35 +61,56 @@ class InputForm extends Component {
         Fullname: this.props.accountUpdate.Fullname,
         Department: this.props.accountUpdate.Department,
         Position: this.props.accountUpdate.Position,
-        Cretate_Date: this.props.accountUpdate.Cretate_Date,
+        Create_Date: this.props.accountUpdate.Create_Date,
       });
     }
     this.getListDepartments();
     this.getListPossitions();
   }
 
-  getListDepartments = () => {
-    const baseURL = `http://localhost:8080`;
-    Axios.get(`${baseURL}/api/v1/departments`)
-      .then((response) => {
-        console.log("Department ", response.data);
-        this.setState({
-          listDepartment: response.data,
-        });
-      })
-      .catch((errors) => console.log(errors));
-  };
+  // getListDepartments = () => {
+  //   const baseURL = `http://localhost:8080`;
+  //   Axios.get(`${baseURL}/api/v1/departments`)
+  //     .then((response) => {
+  //       console.log("Department ", response.data);
+  //       this.setState({
+  //         listDepartment: response.data,
+  //       });
+  //     })
+  //     .catch((errors) => console.log(errors));
+  // };
 
-  getListPossitions = () => {
-    const baseURL = `http://localhost:8080`;
-    Axios.get(`${baseURL}/api/v1/possitions`)
-      .then((response) => {
-        console.log("Possition ", response.data);
-        this.setState({
-          listPossition: response.data,
-        });
-      })
-      .catch((errors) => console.log(errors));
+  getListDepartments = async () => {
+    try {
+      let response = await DepartmentApi.getAll();
+      this.setState({
+        listDepartment: response,
+      });
+    } catch (error) {
+      alert("Lỗi khi get Department");
+    }
+  };
+  // getListPossitions = () => {
+  //   const baseURL = `http://localhost:8080`;
+  //   Axios.get(`${baseURL}/api/v1/possitions`)
+  //     .then((response) => {
+  //       console.log("Possition ", response.data);
+  //       this.setState({
+  //         listPossition: response.data,
+  //       });
+  //     })
+  //     .catch((errors) => console.log(errors));
+  // };
+
+  getListPossitions = async () => {
+    try {
+      let response = await PossitionApi.getAll();
+      this.setState({
+        listPossition: response,
+      });
+    } catch (error) {
+      alert("Lỗi khi get Possition");
+    }
   };
   // Hàm xử lý sự kiện khi click vào nút Update
   handleUpdate = () => {
@@ -110,7 +133,7 @@ class InputForm extends Component {
         Fullname: new_props.accountUpdate.Fullname,
         Department: new_props.accountUpdate.Department,
         Position: new_props.accountUpdate.Position,
-        Cretate_Date: new_props.accountUpdate.Cretate_Date,
+        Create_Date: new_props.accountUpdate.Create_Date,
       };
     }
   }
@@ -220,14 +243,14 @@ class InputForm extends Component {
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="">Cretate Date: </label>
+            <label htmlFor="">Create Date: </label>
             <input
               type="date"
               className="form-control"
               id="Cretate_Date_ID"
               defaultValue=""
-              name="Cretate_Date"
-              value={this.state.Cretate_Date}
+              name="Create_Date"
+              value={this.state.Create_Date}
               onChange={this.handleChange}
             />
           </div>

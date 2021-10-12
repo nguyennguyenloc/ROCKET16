@@ -26,7 +26,7 @@ class ResultFormItem extends Component {
             <td>{account.Fullname}</td>
             <td>{account.Department}</td>
             <td>{account.Position}</td>
-            <td>{account.Cretate_Date}</td>
+            <td>{account.Create_Date}</td>
             <td>
               <button
                 className="btn btn-warning"

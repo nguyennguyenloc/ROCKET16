@@ -16,13 +16,17 @@ class ResultForm extends Component {
                 <th>Fullname</th>
                 <th>Department</th>
                 <th>Position</th>
-                <th>Cretate Date</th>
+                <th>Create Date</th>
                 <th>Edit</th>
                 <th>Delete</th>
               </tr>
             </thead>
             <tbody id="Result_TB">
-              <ResultFormItem listAccounts={this.props.listAccounts} onDeleteForm={this.props.onDeleteForm} onDUpdateForm={this.props.onDUpdateForm} />
+              <ResultFormItem
+                listAccounts={this.props.listAccounts}
+                onDeleteForm={this.props.onDeleteForm}
+                onDUpdateForm={this.props.onDUpdateForm}
+              />
             </tbody>
           </table>
         </div>

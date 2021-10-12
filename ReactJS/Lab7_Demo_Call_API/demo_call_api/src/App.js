@@ -3,8 +3,8 @@ import "./App.css";
 import InputForm from "./Components/InputForm";
 import ResultForm from "./Components/ResultForm";
 import SearchForm from "./Components/SearchForm";
-import Axios from "axios";
-
+// import Axios from "axios";
+import AccountApi from "./Api/AccountApi";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -28,32 +28,60 @@ class App extends Component {
     this.getListAccounts();
   }
 
-  getListAccounts = () => {
-    const baseURL = `http://localhost:8080`;
-    Axios.get(`${baseURL}/api/v1/accounts`)
-      .then((response) => {
-        console.log("API nhận được ", response.data);
-        let listAccounts_API = response.data;
-        let listAccounts = [];
-        for (let index = 0; index < listAccounts_API.length; index++) {
-          let account = {
-            ID: listAccounts_API[index].id,
-            Email: listAccounts_API[index].email,
-            Username: listAccounts_API[index].username,
-            Fullname: listAccounts_API[index].fullname,
-            Department: listAccounts_API[index].department,
-            Position: listAccounts_API[index].position,
-            Create_Date: listAccounts_API[index].createDate,
-          };
-          listAccounts.push(account);
-        }
-        this.setState({
-          listAccounts: listAccounts,
-        });
-      })
-      .catch((errors) => {
-        console.log("lỗi: " + errors);
+  // getListAccounts = () => {
+  //   const baseURL = `http://localhost:8080`;
+  //   Axios.get(`${baseURL}/api/v1/accounts`)
+  //     .then((response) => {
+  //       console.log("API nhận được ", response.data);
+  //       let listAccounts_API = response.data;
+  //       let listAccounts = [];
+  //       for (let index = 0; index < listAccounts_API.length; index++) {
+  //         let account = {
+  //           ID: listAccounts_API[index].id,
+  //           Email: listAccounts_API[index].email,
+  //           Username: listAccounts_API[index].username,
+  //           Fullname: listAccounts_API[index].fullname,
+  //           Department: listAccounts_API[index].department,
+  //           Position: listAccounts_API[index].position,
+  //           Create_Date: listAccounts_API[index].createDate,
+  //         };
+  //         listAccounts.push(account);
+  //       }
+  //       this.setState({
+  //         listAccounts: listAccounts,
+  //       });
+  //     })
+  //     .catch((errors) => {
+  //       console.log("lỗi: " + errors);
+  //     });
+  // };
+
+  getListAccounts = async () => {
+    try {
+      let response = await AccountApi.getAll();
+      let listAccounts_API = response;
+      // console.log("data " + response);
+      let listAccounts = [];
+      for (let index = 0; index < listAccounts_API.length; index++) {
+        let account = {
+          ID: listAccounts_API[index].id,
+          Email: listAccounts_API[index].email,
+          Username: listAccounts_API[index].username,
+          Fullname: listAccounts_API[index].fullname,
+          Department: listAccounts_API[index].department,
+          Position: listAccounts_API[index].position,
+          Create_Date: listAccounts_API[index].createDate,
+        };
+        console.log(account.Create_Date);
+        listAccounts.push(account);
+        console.log(listAccounts);
+      }
+      this.setState({
+        listAccounts: listAccounts,
       });
+    } catch (error) {
+      alert("Lỗi khi get list");
+    }
   };
   // Viết function
   showInputForm = () => {
@@ -69,52 +97,77 @@ class App extends Component {
   };
 
   // Xử lý cho nút Submit
-  onSaveForm = (data) => {
-    // console.log("Dữ liệu nhận được từ Input Form ở APP.js: ", data);
-    // // Bước 1. Set lại State listaccount
-    // let listAccounts = this.state.listAccounts;
-    // listAccounts.push(data);
-    // this.setState({
-    //   listAccounts: listAccounts,
-    // });
-    // // Bước 2: Lưu lại listaccount xuông localStorage
-    // localStorage.setItem("listAccounts", JSON.stringify(listAccounts));
-    const account = {
-      email: data.Email,
-      username: data.Username,
-      fullname: data.Fullname,
-      departmentId: data.Department,
-      positionId: data.Position,
-    };
-    const baseURL = `http://localhost:8080`;
-    Axios.post(`${baseURL}/api/v1/accounts`, account)
-      .then((response) => {
-        console.log(response);
-        this.getListAccounts();
-      })
-      .catch((errors) => console.log(errors));
+  // onSaveForm = (data) => {
+  //   // console.log("Dữ liệu nhận được từ Input Form ở APP.js: ", data);
+  //   // // Bước 1. Set lại State listaccount
+  //   // let listAccounts = this.state.listAccounts;
+  //   // listAccounts.push(data);
+  //   // this.setState({
+  //   //   listAccounts: listAccounts,
+  //   // });
+  //   // // Bước 2: Lưu lại listaccount xuông localStorage
+  //   // localStorage.setItem("listAccounts", JSON.stringify(listAccounts));
+  //   const account = {
+  //     email: data.Email,
+  //     username: data.Username,
+  //     fullname: data.Fullname,
+  //     departmentId: data.Department,
+  //     positionId: data.Position,
+  //   };
+  //   const baseURL = `http://localhost:8080`;
+  //   Axios.post(`${baseURL}/api/v1/accounts`, account)
+  //     .then((response) => {
+  //       console.log(response);
+  //       this.getListAccounts();
+  //     })
+  //     .catch((errors) => console.log(errors));
+  // };
+
+  onSaveForm = async (data) => {
+    try {
+      const account = {
+        email: data.Email,
+        username: data.Username,
+        fullname: data.Fullname,
+        departmentId: data.Department,
+        positionId: data.Position,
+      };
+      await AccountApi.create(account);
+      this.getListAccounts();
+    } catch (error) {
+      alert("Lỗi khi add Account");
+    }
   };
   // Hàm xóa dữ liệu
-  onDeleteForm = (id) => {
-    // console.log("ID Cần xóa là: ", id);
-    // let listAccounts = this.state.listAccounts;
-    // let indexAccountDel = listAccounts.findIndex(
-    //   (account) => account.ID === id
-    // );
-    // console.log("Index của phần tử cần xóa:", indexAccountDel);
-    // if (indexAccountDel !== -1) {
-    //   listAccounts.splice(indexAccountDel, 1);
-    //   this.setState({
-    //     listAccounts: listAccounts,
-    //   });
-    //   localStorage.setItem("listAccounts", JSON.stringify(listAccounts));
-    // }
-    const baseURL = `http://localhost:8080`;
-    Axios.delete(`${baseURL}/api/v1/accounts/${id}`)
-      .then((response) => {
-        this.getListAccounts();
-      })
-      .catch((errors) => console.log(errors));
+  // onDeleteForm = (id) => {
+  //   // console.log("ID Cần xóa là: ", id);
+  //   // let listAccounts = this.state.listAccounts;
+  //   // let indexAccountDel = listAccounts.findIndex(
+  //   //   (account) => account.ID === id
+  //   // );
+  //   // console.log("Index của phần tử cần xóa:", indexAccountDel);
+  //   // if (indexAccountDel !== -1) {
+  //   //   listAccounts.splice(indexAccountDel, 1);
+  //   //   this.setState({
+  //   //     listAccounts: listAccounts,
+  //   //   });
+  //   //   localStorage.setItem("listAccounts", JSON.stringify(listAccounts));
+  //   // }
+  //   const baseURL = `http://localhost:8080`;
+  //   Axios.delete(`${baseURL}/api/v1/accounts/${id}`)
+  //     .then((response) => {
+  //       this.getListAccounts();
+  //     })
+  //     .catch((errors) => console.log(errors));
+  // };
+
+  onDeleteForm = async (id) => {
+    try {
+      await AccountApi.deleteById(id);
+      this.getListAccounts();
+    } catch (error) {
+      alert("Lỗi khi delete by ID");
+    }
   };
   // Xử lý update dữ liệu
   onDUpdateForm = (id) => {
@@ -140,33 +193,48 @@ class App extends Component {
     }
   };
   // Hàm xử lý update dữ liệu vào list
-  update_Account_Button = (account) => {
-    // console.log("Dữ liệu account update là: ", account);
-    // let listAccounts = this.state.listAccounts;
-    // let indexAccount_Update = listAccounts.findIndex(
-    //   (account1) => account1.ID === account.ID
-    // );
-    // if (indexAccount_Update !== -1) {
-    //   listAccounts[indexAccount_Update] = account; // Thực hiện sửa lại Account theo data nhận được
-    //   this.setState({
-    //     listAccounts: listAccounts,
-    //   });
-    //   localStorage.setItem("listAccounts", JSON.stringify(listAccounts)); // Lưu lại dữ liệu xuống local Storage
-    // }
+  // update_Account_Button = (account) => {
+  //   // console.log("Dữ liệu account update là: ", account);
+  //   // let listAccounts = this.state.listAccounts;
+  //   // let indexAccount_Update = listAccounts.findIndex(
+  //   //   (account1) => account1.ID === account.ID
+  //   // );
+  //   // if (indexAccount_Update !== -1) {
+  //   //   listAccounts[indexAccount_Update] = account; // Thực hiện sửa lại Account theo data nhận được
+  //   //   this.setState({
+  //   //     listAccounts: listAccounts,
+  //   //   });
+  //   //   localStorage.setItem("listAccounts", JSON.stringify(listAccounts)); // Lưu lại dữ liệu xuống local Storage
+  //   // }
 
-    let id = account.ID;
-    const body = {
-      fullname: account.Fullname,
-      departmentId: account.Department,
-      positionId: account.Position,
-    };
+  //   let id = account.ID;
+  //   const body = {
+  //     fullname: account.Fullname,
+  //     departmentId: account.Department,
+  //     positionId: account.Position,
+  //   };
 
-    const baseURL = `http://localhost:8080`;
-    Axios.put(`${baseURL}/api/v1/accounts/${id}`, body)
-      .then((response) => {
-        this.getListAccounts();
-      })
-      .catch((errors) => console.log(errors));
+  //   const baseURL = `http://localhost:8080`;
+  //   Axios.put(`${baseURL}/api/v1/accounts/${id}`, body)
+  //     .then((response) => {
+  //       this.getListAccounts();
+  //     })
+  //     .catch((errors) => console.log(errors));
+  // };
+
+  update_Account_Button = async (account) => {
+    try {
+      let id = account.ID;
+      const body = {
+        fullname: account.Fullname,
+        departmentId: account.Department,
+        positionId: account.Position,
+      };
+      await AccountApi.updateById(id, body);
+      this.getListAccounts();
+    } catch (error) {
+      alert("lỗi khi update account");
+    }
   };
   // Xử lý search dữ liệu
   onSearchForm = (data) => {
