@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.vti.entity.Enum.PositionName;
+import com.vti.entity.Enum.PositionNameConvert;
 
 @Entity
 @Table(name = "Position", catalog = "TestingSystemHibernate4")
@@ -24,12 +28,13 @@ public class Position implements Serializable {
 	private short id;
 
 	@Column(name = "PositionName", nullable = false, unique = true)
-	@Enumerated(EnumType.STRING)
+	// @Enumerated(EnumType.STRING)
+	@Convert(converter = PositionNameConvert.class)
 	private PositionName name;
 
-	public enum PositionName {
-		Dev, Test, Scrum_Master, PM
-	}
+//	public enum PositionName {
+//		Dev, Test, Scrum_Master, PM
+//	}
 
 	@OneToMany(mappedBy = "position")
 	List<Account> accounts;
