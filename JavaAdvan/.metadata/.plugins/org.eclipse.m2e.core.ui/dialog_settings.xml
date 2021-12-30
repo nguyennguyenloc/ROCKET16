@@ -44,6 +44,8 @@
 	</section>
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="E:\ROCKET16\JavaAdvan\Hibernate_Lab4\src\main\java\com\vti\repository\AccountRepository.java"/>
+			<item value="E:\ROCKET16\JavaAdvan\Hibernate_Lab2\src\main\java\com\vti\entity\Department.java"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -56,13 +58,23 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
-			<item value="com.vti"/>
+			<item value="com.vti.Hibernate_Lab5_ForeignKey"/>
+			<item value="com.vti.Hibernate_Lab5_Native"/>
+			<item value="com.vti.Hibernate_Lab5_Criteria"/>
+			<item value="com.vti.entity"/>
 		</list>
 		<list key="groupId">
 			<item value="com.vti"/>
 		</list>
 		<list key="artifactId">
-			<item value="DemoHibernate"/>
+			<item value="Hibernate_Lab5_ForeignKey"/>
+			<item value="Hibernate_Lab5_Native"/>
+			<item value="Hibernate_Lab5_Criteria"/>
+			<item value="Hibernate_Lab5_HQL"/>
+			<item value="Hibernate_Lab4"/>
+			<item value="Hibernate_Lab3"/>
+			<item value="Hibernate_Lab2"/>
+			<item value="Hibernate_Lab1"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>

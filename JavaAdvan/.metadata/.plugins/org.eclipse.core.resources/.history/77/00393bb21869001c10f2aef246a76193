@@ -1,0 +1,29 @@
+package com.vti.frontend;
+
+import java.util.Scanner;
+
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
+import com.vti.entity.Student;
+
+
+public class Demo_Validation {
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		Student student = new Student();
+		System.out.println("Chương trình quản lý sinh viên");
+		System.out.println("Nhập vào ID");
+		student.setId(scanner.nextInt());
+		System.out.println("Nhập vào Name");
+		student.setName(scanner.next());
+		System.out.println("Nhập vào Email");
+		student.setEmail(scanner.next());
+		System.out.println("Nhập vào Age");
+		student.setAge(scanner.nextInt());
+
+		ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+		Validator validator = validatorFactory.getValidator();
+	}
+}

@@ -1,0 +1,15 @@
+package com.vti.frontend;
+
+import java.util.List;
+
+import com.vti.entity.Account;
+import com.vti.repository.AccountRepository;
+
+public class DemoHQL {
+	public static void main(String[] args) {
+		AccountRepository accountRepository = new AccountRepository();
+
+		List<Account> list = accountRepository.get_FROM();
+	}
+
+}

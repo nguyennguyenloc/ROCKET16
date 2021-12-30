@@ -1,0 +1,12 @@
+package com.vti.entity;
+
+import java.io.Serializable;
+
+public class Position implements Serializable{
+	private short id;
+	private PositionName name;
+
+	public enum PositionName {
+		Dev, Test, Scrum_Master, PM
+	}
+}

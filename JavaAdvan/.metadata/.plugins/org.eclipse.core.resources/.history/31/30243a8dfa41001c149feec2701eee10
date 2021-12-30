@@ -1,0 +1,13 @@
+package com.vti.repository;
+
+import com.vti.utils.HibernateUtils;
+
+public class AccountRepository {
+private HibernateUtils hibernateUtils;
+
+public AccountRepository(){
+	hibernateUtils = HibernateUtils.getInstance();
+}
+
+@SuppressWarnings("unchecked")
+}

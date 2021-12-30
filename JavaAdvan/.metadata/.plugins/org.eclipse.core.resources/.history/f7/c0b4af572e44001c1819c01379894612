@@ -1,0 +1,8 @@
+package com.vti.frontend;
+
+public class DemoHQL {
+	public static void main(String[] args) {
+
+	}
+
+}

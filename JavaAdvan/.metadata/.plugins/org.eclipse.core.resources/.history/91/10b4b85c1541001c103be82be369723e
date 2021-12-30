@@ -1,0 +1,37 @@
+package com.vti.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "`Account`", catalog = "TestingSystemHibernate4")
+public class Account {
+	@Column(name = "AccountID")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private short id;
+
+	@Column(name = "Email", length = 50, nullable = false, unique = true, updatable = false)
+	private String email;
+
+	@Column(name = "Username", length = 50, nullable = false, unique = true, updatable = false)
+	private String username;
+
+	@Column(name = "FullName", length = 50, nullable = false)
+	private String fullname;
+
+	private Department department;
+	private Position position;
+	
+	@Column(name="CreateDate")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createDate;
+}

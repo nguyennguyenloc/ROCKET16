@@ -8,13 +8,14 @@ import com.vti.entiy.Account;
 public class Account_Demo {
 	// private IAccDAO accountDAO = new AccDAO_Hibernate();
 
-	private IAccDAO accountDAO = new AccDAO_JDBC();
+	// private IAccDAO accountDAO = new AccDAO_JDBC();
 	// hoặc
-	// private IAccDAO accountDAO;
 
-	// public Account_Demo(){
-	// accountDAO = new AccDAO_JDBC();
-	// }
+	private IAccDAO accountDAO;
+
+	public Account_Demo(IAccDAO any) {
+		accountDAO = any;
+	}
 
 	public Boolean createAccount() {
 		Account account = new Account(1, "daonq");

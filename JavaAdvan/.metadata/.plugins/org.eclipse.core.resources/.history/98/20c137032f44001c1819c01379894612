@@ -1,0 +1,26 @@
+package com.vti.repository;
+
+import java.util.List;
+
+import org.hibernate.Session;
+
+import com.vti.utils.HibernateUtils;
+
+public class AccountRepository {
+	private HibernateUtils hibernateUtils;
+
+	public AccountRepository() {
+		hibernateUtils = HibernateUtils.getInstance();
+	}
+
+	public List<Account> get_FROM() {
+		Session session = null;
+		try {
+
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+	}
+}

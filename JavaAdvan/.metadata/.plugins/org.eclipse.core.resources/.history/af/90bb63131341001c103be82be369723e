@@ -1,0 +1,16 @@
+package com.vti.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+@Entity
+@Table(name="Position", catalog="TestingSystemHibernate4")
+public class Position implements Serializable{
+	private short id;
+	private PositionName name;
+
+	public enum PositionName {
+		Dev, Test, Scrum_Master, PM
+	}
+}

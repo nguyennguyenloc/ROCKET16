@@ -1,0 +1,11 @@
+package com.vti.frontend;
+
+import com.vti.utils.HibernateUtils;
+
+public class DemoHQL {
+	public static void main(String[] args) {
+		private HibernateUtils hibernateUtils;
+
+	}
+
+}

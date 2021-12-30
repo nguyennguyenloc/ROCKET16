@@ -1,0 +1,18 @@
+package com.vti.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
+@Entity
+@Table(name="Department", catalog="TestingSystemHibernate4")
+@Setter
+@Getter
+public class Department implements Serializable {
+	private short id;
+	private String name;
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Rocket16_DemoBeanvalidation&apos; to &apos;Hibernate_Lab6_DemoBeanvalidation&apos;" description="Rename resource &apos;Rocket16_DemoBeanvalidation&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/Rocket16_DemoBeanvalidation" name="Hibernate_Lab6_DemoBeanvalidation" stamp="1640831374861" updateReferences="true"/>
+</session>

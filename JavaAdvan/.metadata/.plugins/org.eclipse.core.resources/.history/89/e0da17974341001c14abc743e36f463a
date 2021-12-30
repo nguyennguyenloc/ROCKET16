@@ -1,0 +1,11 @@
+package com.vti.entity.Enum;
+
+public enum PositionName {
+	DEV("Dev"), TEST("Test"), SCRUM_MASTER("Scrum_Master"), PM("PM");
+
+	private String value;
+
+	private PositionName(String value) {
+		this.value = value;
+	}
+}

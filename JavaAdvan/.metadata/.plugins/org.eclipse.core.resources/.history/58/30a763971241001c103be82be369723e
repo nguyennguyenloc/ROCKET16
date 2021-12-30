@@ -1,0 +1,9 @@
+package com.vti.entity;
+
+import java.io.Serializable;
+
+public class Department implements Serializable{
+	private short id;
+	private String name;
+
+}

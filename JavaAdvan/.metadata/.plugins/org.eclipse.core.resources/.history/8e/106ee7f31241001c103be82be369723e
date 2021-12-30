@@ -1,0 +1,10 @@
+package com.vti.entity;
+
+public class Position {
+	private short id;
+	private PositionName name;
+
+	public enum PositionName {
+		Dev, Test, Scrum_Master, PM
+	}
+}
